@@ -50,6 +50,7 @@ export function Todolist(props: PropsType) {
         props.updateTodolist(props.todolistId, updateTitle)
     }
 
+
     return <div>
         <h3>
             <EditableSpan oldTitle={props.title} callBack={updateTodoHandler}/>
