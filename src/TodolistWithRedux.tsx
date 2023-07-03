@@ -31,10 +31,10 @@ export function TodolistWithRedux({todolist}: PropsType) {
     let dispatch = useDispatch()
 
     if (filter === "active") {
-        tasks = tasks.filter(t => t.isDone === false);
+        tasks = tasks.filter(t => !t.isDone);
     }
     if (filter === "completed") {
-        tasks = tasks.filter(t => t.isDone === true);
+        tasks = tasks.filter(t => t.isDone);
     }
 
 
