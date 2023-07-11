@@ -4,7 +4,6 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import {Delete} from "@mui/icons-material";
 import React, {ChangeEvent, memo, useCallback} from "react";
 import {TaskType} from "./Todolist";
-import {AddItemForm} from "./AddItemForm";
 
 export type TaskPropsType = {
     task: TaskType
