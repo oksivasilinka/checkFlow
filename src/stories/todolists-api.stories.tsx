@@ -91,7 +91,7 @@ export const CreateTask = () => {
 export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
     const todolistId = 'c6a02fab-8d63-4509-9d50-f2390df61302'
-    const id = '84fddb35-c555-4304-bdd8-1165807ad98e'
+    const id = 'c1083b25-4b5b-4db6-b24b-92d92dca4ee5'
     useEffect(() => {
         todolistApi.deleteTask(todolistId, id)
             .then((res) => {
@@ -105,9 +105,9 @@ export const DeleteTask = () => {
 
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
-    const todolistId = '019be47b-29de-4ee1-a39a-8d56b9449279'
-    const taskId = '451f6961-dfd3-464b-9f1e-fe09623e29e3'
-    const title = 'JS'
+    const todolistId = 'c6a02fab-8d63-4509-9d50-f2390df61302'
+    const taskId = '91594864-6b19-478a-8dbd-3ca810d82e40'
+    const title = 'STORYBOOK'
     useEffect(() => {
         todolistApi.updateTask(todolistId, title, taskId)
             .then((res) => {
