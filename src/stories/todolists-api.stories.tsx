@@ -9,7 +9,7 @@ export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        todolistApi.get()
+        todolistApi.getTodo()
         .then((res)=> {
             setState(res.data)
         })

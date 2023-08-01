@@ -1,13 +1,12 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1/",
     withCredentials: true
 })
 
-
 export const todolistApi = {
-    get() {
+    getTodo() {
         return instance.get<TodolistType[]>("todo-lists")
     },
     addTodo(title: string) {
@@ -17,7 +16,7 @@ export const todolistApi = {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
     },
     updateTodo(todolistId: string, title: string) {
-        return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
+        return instance.put<ResponseType, AxiosResponse<ResponseType>, {title: string}>(`todo-lists/${todolistId}`, {title})
     },
     getTasks(todolistId: string) {
         return instance.get<GetTaskResponseType>(`/todo-lists/${todolistId}/tasks`)
@@ -29,7 +28,7 @@ export const todolistApi = {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
     updateTask(todolistId: string, title: string, taskId: string) {
-        return instance.put<ResponseType<GetTaskResponseType>>(`todo-lists/${todolistId}/tasks/${taskId}`, {title})
+        return instance.put<ResponseType<{item: TaskType}>, AxiosResponse<ResponseType<{item: TaskType}>>, UpdateTaskModelType>(`todo-lists/${todolistId}/tasks/${taskId}`, {title})
     }
 }
 
@@ -54,11 +53,24 @@ type TaskType = {
     description: string
     todoListId: string
     order: number
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
     addedDate: string
+}
+
+type UpdateTaskModelType = {
+    id?: string
+    title?: string
+    description?: string
+    todoListId?: string
+    order?: number
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
+    addedDate?: string
 }
 
 type GetTaskResponseType = {
@@ -67,4 +79,18 @@ type GetTaskResponseType = {
     error: string | null
 }
 
+export enum TaskStatuses {
+    New = 0,
+    InProgress,
+    Completed,
+    Draft
+}
+
+export enum TaskPriorities {
+    Low,
+    Middle,
+    Hi,
+    Urgently,
+    Later
+}
 

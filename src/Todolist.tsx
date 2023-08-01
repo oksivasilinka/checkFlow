@@ -1,11 +1,13 @@
-import React, {ChangeEvent, memo, useCallback} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Delete} from "@mui/icons-material";
-import {Button, ButtonProps, Checkbox} from "@mui/material";
+import {Button, ButtonProps} from "@mui/material";
 import {Task} from "./Task";
+import {getTaskTC} from "./state/tasks-reducer";
+import {useAppDispatch} from "./state/store";
 
 
 export type TaskType = {
@@ -29,6 +31,11 @@ type PropsType = {
 }
 
 export const Todolist = memo((props: PropsType) => {
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(getTaskTC(props.id))
+    }, [])
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id);
@@ -104,12 +111,12 @@ export const Todolist = memo((props: PropsType) => {
     </div>
 })
 
-type ButtonWithMemoPropsType = {
-    title: string
-    color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
-    variant: 'text' | 'outlined' | 'contained'
-    onClick: () => void
-}
+// type ButtonWithMemoPropsType = {
+//     title: string
+//     color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+//     variant: 'text' | 'outlined' | 'contained'
+//     onClick: () => void
+// }
 
 const ButtonWithMemo = memo((props: ButtonProps) => {
     return <Button variant={props.variant}
