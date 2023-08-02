@@ -8,12 +8,19 @@ import {Menu} from "@mui/icons-material";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, getTodolistTC,
+    changeTodolistTitleAC,
+    getTodolistTC,
     removeTodolistAC,
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {
+    addTaskTC,
+    changeTaskTitleAC,
+    deleteTaskTC,
+    updateTaskStatusTC,
+} from "./state/tasks-reducer";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./state/store";
+import {TaskStatuses} from "./api/todolist-api";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -38,15 +45,15 @@ function AppWithRedux() {
 
 
     const removeTask = useCallback((id: string, todolistId: string) => {
-        dispatch(removeTaskAC(id, todolistId))
+        dispatch(deleteTaskTC(todolistId, id))
     }, [dispatch])
 
     const addTask = useCallback((title: string, todolistId: string) => {
-        dispatch(addTaskAC(title, todolistId))
+        dispatch(addTaskTC(todolistId, title ))
     }, [dispatch])
 
-    const changeStatus = useCallback((id: string, isDone: boolean, todolistId: string) => {
-        dispatch(changeTaskStatusAC(id, isDone, todolistId))
+    const changeStatus = useCallback((id: string, status: TaskStatuses, todolistId: string) => {
+        dispatch(updateTaskStatusTC(todolistId, id, status))
     }, [dispatch])
 
     const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
@@ -117,49 +124,6 @@ function AppWithRedux() {
             </Container>
         </div>
 
-        // return (
-        //     <div className="App">
-        //         <AppBar position="static">
-        //             <Toolbar>
-        //                 <IconButton edge="start" color="inherit" aria-label="menu">
-        //                     <Menu />
-        //                 </IconButton>
-        //                 <Typography variant="h6">
-        //                     News
-        //                 </Typography>
-        //                 <Button color="inherit">Login</Button>
-        //             </Toolbar>
-        //         </AppBar>
-        //         <Container fixed>
-        //             <Grid container style={{padding: "20px"}}>
-        //                 <AddItemForm addItem={addTodolist}/>
-        //             </Grid>
-        //             <Grid container spacing={3}>
-        //                 {
-        //                     todolists.map(tl => {
-        //                         // let allTodolistTasks = tasks[tl.id];
-        //                         // let tasksForTodolist = allTodolistTasks;
-        //
-        //                         // if (tl.filter === "active") {
-        //                         //     tasksForTodolist = allTodolistTasks.filter(t => !t.isDone);
-        //                         // }
-        //                         // if (tl.filter === "completed") {
-        //                         //     tasksForTodolist = allTodolistTasks.filter(t => t.isDone);
-        //                         // }
-        //
-        //                         return <Grid key={tl.id} item>
-        //                             <Paper style={{padding: "10px"}}>
-        //                                 <TodolistWithRedux
-        //                                     todolist={tl}
-        //
-        //                                 />
-        //                             </Paper>
-        //                         </Grid>
-        //                     })
-        //                 }
-        //             </Grid>
-        //         </Container>
-        //     </div>
     );
 }
 

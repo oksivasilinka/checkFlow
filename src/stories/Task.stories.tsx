@@ -9,7 +9,7 @@ const meta: Meta<typeof Task> = {
     component: Task,
     tags: ['autodocs'],
     args: {
-        task: {id: '111', title: 'JS', isDone: true},
+        // task: {id: '111', title: 'JS', isDone: true},
         changeTaskStatus: action('changeTaskStatus'),
         changeTaskTitle: action('changeTaskTitle'),
         removeTask: action('removeTask'),}
@@ -22,14 +22,14 @@ export const TaskIsDoneStory: Story = {}
 
 export const TaskIsNotDoneStory: Story = {
     args: {
-        task: {id: '111', title: 'JS', isDone: false},
+        // task: {id: '111', title: 'JS', isDone: false},
     }
 }
 
 const TaskWithHook: FC<TaskPropsType> = (args) => {
     const [task, setTask] = useState(args.task)
     const changeTaskStatus = () => {
-        setTask({...task, isDone: !task.isDone})
+        // setTask({...task, isDone: !task.isDone})
     }
     const changeTaskTitle = (taskId: string, title: string) => {
         setTask({...task, title: title})
