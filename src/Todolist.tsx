@@ -7,7 +7,7 @@ import {Button, ButtonProps} from "@mui/material";
 import {Task} from "./Task";
 import {getTaskTC} from "./state/tasks-reducer";
 import {useAppDispatch} from "./state/store";
-import {FilterValuesType} from "./AppWithRedux";
+import {FilterValuesType} from "./App";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
 
 

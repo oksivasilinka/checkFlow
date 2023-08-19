@@ -31,7 +31,7 @@ export type TodolistType = {
 }
 
 
-function AppWithRedux() {
+function App() {
 
     let state = useSelector<AppRootStateType, AppRootStateType>(state => state)
     let {tasks, todolists} = state
@@ -127,4 +127,4 @@ function AppWithRedux() {
     );
 }
 
-export default AppWithRedux;
+export default App;
