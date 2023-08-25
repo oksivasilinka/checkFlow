@@ -3,4 +3,3 @@ module.exports = {
     testRegex: './*\\.test\\.js$',
     setupFilesAfterEnv: ['./setupTests.js']
 };
-  

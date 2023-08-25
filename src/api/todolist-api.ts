@@ -1,5 +1,4 @@
 import axios, {AxiosResponse} from "axios";
-
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1/",
     withCredentials: true
@@ -10,25 +9,25 @@ export const todolistApi = {
         return instance.get<TodolistType[]>("todo-lists")
     },
     addTodo(title: string) {
-        return instance.post<ResponseType<{ item: TodolistType[] }>>("todo-lists", {title})
+        return instance.post<ResponseType<{ item: TodolistType }>, AxiosResponse<ResponseType<{ item: TodolistType }>>, { title: string }>("todo-lists", {title})
     },
     deleteTodo(todolistId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
     },
     updateTodo(todolistId: string, title: string) {
-        return instance.put<ResponseType, AxiosResponse<ResponseType>, {title: string}>(`todo-lists/${todolistId}`, {title})
+        return instance.put<ResponseType, AxiosResponse<ResponseType>, { title: string }>(`todo-lists/${todolistId}`, {title})
     },
     getTasks(todolistId: string) {
         return instance.get<GetTaskResponseType>(`/todo-lists/${todolistId}/tasks`)
     },
     addTasks(todolistId: string, title: string) {
-        return instance.post<GetTaskResponseType>(`/todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<ResponseType<{ item: TaskType }>, AxiosResponse<ResponseType<{ item: TaskType }>>, { title: string }>(`/todo-lists/${todolistId}/tasks`, {title})
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
     updateTask(todolistId: string, model: UpdateTaskModelType, taskId: string) {
-        return instance.put<ResponseType<{item: TaskType}>, AxiosResponse<ResponseType<{item: TaskType}>>, UpdateTaskModelType>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
+        return instance.put<ResponseType<{ item: TaskType }>, AxiosResponse<ResponseType<{ item: TaskType }>>, UpdateTaskModelType>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     }
 }
 

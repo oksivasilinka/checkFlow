@@ -11,7 +11,6 @@ import {FilterValuesType} from "./App";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
 
 
-
 type PropsType = {
     id: string
     title: string
@@ -48,14 +47,6 @@ export const Todolist = memo((props: PropsType) => {
     const onActiveClickHandler = useCallback(() => props.changeFilter("active", props.id), [props.id])
     const onCompletedClickHandler = useCallback(() => props.changeFilter("completed", props.id), [props.id])
 
-    let tasks = props.tasks
-
-    if (props.filter === "active") {
-        tasks = tasks.filter(t => !t.status);
-    }
-    if (props.filter === "completed") {
-        tasks = tasks.filter(t => t.status);
-    }
 
     const removeTask = useCallback((taskId: string) => props.removeTask(taskId, props.id), [props.id, props.removeTask])
     const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses) => {
@@ -64,6 +55,15 @@ export const Todolist = memo((props: PropsType) => {
     const changeTaskTitle = useCallback((taskId: string, newValue: string) => {
         props.changeTaskTitle(taskId, newValue, props.id);
     }, [props.id, props.changeTaskTitle])
+
+    let tasks = props.tasks
+
+    if (props.filter === "active") {
+        tasks = tasks.filter(t => !t.status);
+    }
+    if (props.filter === "completed") {
+        tasks = tasks.filter(t => t.status);
+    }
 
     return <div>
         <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
