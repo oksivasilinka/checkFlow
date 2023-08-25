@@ -71,7 +71,7 @@ test('correct task should be added to correct array', () => {
     expect(endState["todolistId2"].length).toBe(4);
     expect(endState["todolistId2"][0].id).toBeDefined();
     expect(endState["todolistId2"][0].title).toBe("juce");
-    expect(endState["todolistId2"][0].status).toBe(false);
+    expect(endState["todolistId2"][0].status).toBe(0);
 })
 
 test('status of specified task should be changed', () => {
