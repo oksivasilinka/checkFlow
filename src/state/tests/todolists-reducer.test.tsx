@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     removeTodolistAC,
@@ -31,17 +32,17 @@ test('correct todolist should be removed', () => {
     expect(endState[0].id).toBe(todolistId2);
 });
 
-// test('correct todolist should be added', () => {
-//
-//     let newTodolistTitle = "New Todolist";
-//
-//     const endState = todolistsReducer(startState, addTodolistAC(newTodolistTitle))
-//
-//     expect(endState.length).toBe(3);
-//     expect(endState[2].title).toBe(newTodolistTitle);
-//     expect(endState[2].filter).toBe("all");
-//     expect(endState[2].id).toBeDefined();
-// });
+test('correct todolist should be added', () => {
+
+    let newTodolistTitle = "New Todolist";
+
+    const endState = todolistsReducer(startState, addTodolistAC({id: v1(), title: newTodolistTitle, filter: "all"},))
+
+    expect(endState.length).toBe(3);
+    expect(endState[2].title).toBe(newTodolistTitle);
+    expect(endState[2].filter).toBe("all");
+    expect(endState[2].id).toBeDefined();
+});
 
 test('correct todolist should change its name', () => {
 
