@@ -2,7 +2,13 @@ import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {AddItemForm} from './AddItemForm';
-import {AppBar, Button, Container, Grid, Paper, Toolbar, Typography} from "@mui/material";
+import AppBar from "@mui/material/AppBar/AppBar";
+import Button from "@mui/material/Button/Button";
+import Container from "@mui/material/Container/Container";
+import Grid from "@mui/material/Grid/Grid";
+import Paper from "@mui/material/Paper/Paper";
+import Toolbar from "@mui/material/Toolbar/Toolbar";
+import Typography from "@mui/material/Typography/Typography";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Menu} from "@mui/icons-material";
 import {
@@ -15,6 +21,8 @@ import {
 import {addTaskTC, deleteTaskTC, updateTaskStatusTC, updateTaskTitleTC,} from "./state/tasks-reducer";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "./state/store";
 import {TaskStatuses} from "./api/todolist-api";
+import {LinearProgress} from "@mui/material";
+import {RequestStatusType} from "./state/tests/app-reducer";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -28,6 +36,7 @@ export type TodolistType = {
 function App() {
 
     let state = useAppSelector<AppRootStateType>(state => state)
+    let status = useAppSelector<RequestStatusType>(state => state.app.status)
     let {tasks, todolists} = state
     // let todolists = useSelector<AppRootStateType, TodolistType[]>(state => state.todolists)
     // let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
@@ -59,7 +68,6 @@ function App() {
     }, [dispatch])
 
     const removeTodolist = useCallback((id: string) => {
-        // let action = removeTodolistAC(id)
         dispatch(deleteTodolistTC(id))
     }, [dispatch])
 
@@ -68,9 +76,7 @@ function App() {
     }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
-        // let action = addTodolistAC(title)
         dispatch(addTodolistTC(title))
-
     }, [dispatch])
 
     return (
@@ -86,6 +92,7 @@ function App() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
+            {status === 'loading' && <LinearProgress/>}
             <Container fixed>
                 <Grid container style={{padding: "20px"}}>
                     <AddItemForm addItem={addTodolist}/>

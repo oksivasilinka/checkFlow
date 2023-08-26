@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {todolistApi} from "../api/todolist-api";
 import {AxiosResponse} from "axios";
 import {FilterValuesType, TodolistType} from "../App";
+import {setStatus, setStatusType} from "./tests/app-reducer";
 
 
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
@@ -16,6 +17,7 @@ type ActionsType =
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
     | SetTodolistACType
+    | setStatusType
 
 let initialState: TodolistDomainType[] = []
 
@@ -26,7 +28,7 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
         case 'REMOVE-TODOLIST':
             return state.filter(tl => tl.id != action.id)
         case 'ADD-TODOLIST':
-            return [ ...state, {...action.todolist, filter: 'all'}]
+            return [...state, {...action.todolist, filter: 'all'}]
         case 'CHANGE-TODOLIST-TITLE':
             return state.map(el => el.id === action.id ? {...el, title: action.title} : el)
         case 'CHANGE-TODOLIST-FILTER':
@@ -59,28 +61,45 @@ export const getTodolistTC = () => (dispatch: Dispatch) => {
         .then((res: AxiosResponse) => {
             dispatch(setTodolistAC(res.data))
         })
+        .catch((error) => {
+
+        })
+        .finally(() => {
+            dispatch(setStatus('succeeded'))
+        })
 }
 
 export const deleteTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
+    dispatch(setStatus('loading'))
     todolistApi.deleteTodo(todolistId)
         .then((res) => {
             dispatch(removeTodolistAC(todolistId))
+            dispatch(setStatus('succeeded'))
         })
 }
 
 
 export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
+    dispatch(setStatus('loading'))
     todolistApi.addTodo(title)
         .then((res: AxiosResponse) => {
             dispatch(addTodolistAC(res.data.data.item))
+        })
+        .catch((error) => {
+            console.log((error as {message: string}).message)
+        })
+        .finally(() => {
+            dispatch(setStatus('succeeded'))
         })
 }
 
 
 export const updateTodolistTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setStatus('loading'))
     todolistApi.updateTodo(todolistId, title)
         .then((res) => {
             dispatch(changeTodolistTitleAC(todolistId, title))
+            dispatch(setStatus('succeeded'))
         })
 }
 

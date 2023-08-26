@@ -3,7 +3,7 @@ import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Delete} from "@mui/icons-material";
-import {Button, ButtonProps} from "@mui/material";
+import Button, {ButtonProps} from "@mui/material/Button";
 import {Task} from "./Task";
 import {getTaskTC} from "./state/tasks-reducer";
 import {useAppDispatch} from "./state/store";

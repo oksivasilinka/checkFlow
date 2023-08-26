@@ -1,4 +1,4 @@
-import {Checkbox} from "@mui/material";
+import Checkbox from "@mui/material/Checkbox/Checkbox";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Delete} from "@mui/icons-material";
