@@ -1,20 +1,32 @@
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistACType,} from './todolists-reducer';
+import {
+    AddTodolistActionType,
+    RemoveTodolistActionType,
+    SetTodolistACType,
+} from './todolists-reducer';
 import {Dispatch} from "redux";
 import {TaskStatuses, TaskType, todolistApi, UpdateTaskModelType} from "../api/todolist-api";
 import {AxiosResponse} from "axios";
 import {AppRootStateType} from "./store";
-import {setStatus, setStatusType} from "./tests/app-reducer";
+import {setError, SetErrorType, setStatus, SetStatusType} from "./tests/app-reducer";
 
 export type TasksStateType = { [key: string]: TaskType[] }
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusActionType = ReturnType<typeof changeTaskStatusAC>
 export type ChangeTaskTitleActionType = ReturnType<typeof changeTaskTitleAC>
-export type setTaskACType = ReturnType<typeof setTaskAC>
+export type SetTaskACType = ReturnType<typeof setTaskAC>
 
-type ActionsType = RemoveTaskActionType | AddTaskActionType
-    | ChangeTaskStatusActionType | ChangeTaskTitleActionType
-    | AddTodolistActionType | RemoveTodolistActionType | SetTodolistACType | setTaskACType | setStatusType
+type ActionsType =
+    RemoveTaskActionType
+    | AddTaskActionType
+    | ChangeTaskStatusActionType
+    | ChangeTaskTitleActionType
+    | AddTodolistActionType
+    | RemoveTodolistActionType
+    | SetTodolistACType
+    | SetTaskACType
+    | SetStatusType
+    | SetErrorType
 
 let initialState: TasksStateType = {}
 
@@ -96,8 +108,22 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
     dispatch(setStatus('loading'))
     todolistApi.addTasks(todolistId, title)
         .then((res: AxiosResponse) => {
-            dispatch(addTaskAC(res.data.data.item, todolistId))
-            dispatch(setStatus('succeeded'))
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item, todolistId))
+                dispatch(setStatus('succeeded'))
+            } else {
+                const error = res.data.messages
+                if (error) {
+                    dispatch(setError(error))
+                } else {
+                    dispatch(setError('Some error'))
+                }
+                dispatch(setStatus('failed'))
+            }
+        })
+        .catch((error) => {
+            dispatch(setError(error.message))
+            dispatch(setStatus('failed'))
         })
 }
 

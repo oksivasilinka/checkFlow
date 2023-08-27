@@ -23,6 +23,7 @@ import {AppRootStateType, useAppDispatch, useAppSelector} from "./state/store";
 import {TaskStatuses} from "./api/todolist-api";
 import {LinearProgress} from "@mui/material";
 import {RequestStatusType} from "./state/tests/app-reducer";
+import {ErrorSnackbar} from "./ErrorSnackBar";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -106,6 +107,7 @@ function App() {
                                 <Paper style={{padding: "10px"}}>
                                     <Todolist
                                         id={tl.id}
+                                        entityStatus={tl.entityStatus}
                                         title={tl.title}
                                         tasks={allTasks}
                                         removeTask={removeTask}
@@ -123,6 +125,7 @@ function App() {
                     }
                 </Grid>
             </Container>
+            <ErrorSnackbar/>
         </div>
 
     );

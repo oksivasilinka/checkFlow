@@ -16,7 +16,8 @@ const initialGlobalState = {
     todolists: [] ,
     tasks: {},
     app: {
-        status: 'loading' as RequestStatusType
+        status: 'loading' as RequestStatusType,
+        error: null as null | string
     }
 };
 
