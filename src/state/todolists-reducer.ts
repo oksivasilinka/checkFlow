@@ -1,8 +1,9 @@
 import {Dispatch} from "redux";
-import {todolistApi} from "../api/todolist-api";
+import {RESULT_CODES, todolistApi} from "../api/todolist-api";
 import {AxiosResponse} from "axios";
 import {FilterValuesType, TodolistType} from "../App";
 import {RequestStatusType, setError, SetErrorType, setStatus, SetStatusType} from "./tests/app-reducer";
+import {handleServerAppError} from "../utils/utils-error";
 
 
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
@@ -87,7 +88,7 @@ export const deleteTodolistTC = (todolistId: string) => (dispatch: Dispatch) => 
     dispatch(setEntityStatusTodoAC(todolistId, 'loading'))
     todolistApi.deleteTodo(todolistId)
         .then((res) => {
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === RESULT_CODES.OK) {
                 dispatch(removeTodolistAC(todolistId))
                 dispatch(setStatus('succeeded'))
             } else {
@@ -112,7 +113,11 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
     dispatch(setStatus('loading'))
     todolistApi.addTodo(title)
         .then((res: AxiosResponse) => {
-            dispatch(addTodolistAC(res.data.data.item))
+            if (res.data.resultCode === RESULT_CODES.OK) {
+                dispatch(addTodolistAC(res.data.data.item))
+            } else {
+                handleServerAppError(dispatch, res.data)
+            }
         })
         .catch((error) => {
             console.log((error as { message: string }).message)
