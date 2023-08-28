@@ -68,6 +68,15 @@ export type UpdateTaskModelType = {
     deadline: string
 }
 
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
+}
+
 type GetTaskResponseType = {
     items: TaskType[]
     totalCount: number

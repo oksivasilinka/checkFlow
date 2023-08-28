@@ -18,7 +18,7 @@ import {
     getTodolistTC,
     updateTodolistTitleTC,
 } from "./state/todolists-reducer";
-import {addTaskTC, deleteTaskTC, updateTaskStatusTC, updateTaskTitleTC,} from "./state/tasks-reducer";
+import {addTaskTC, deleteTaskTC, updateTaskTC} from "./state/tasks-reducer";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "./state/store";
 import {TaskStatuses} from "./api/todolist-api";
 import {LinearProgress} from "@mui/material";
@@ -57,11 +57,11 @@ function App() {
     }, [dispatch])
 
     const changeStatus = useCallback((id: string, status: TaskStatuses, todolistId: string) => {
-        dispatch(updateTaskStatusTC(todolistId, id, status))
+        dispatch(updateTaskTC(todolistId, id, {status}))
     }, [dispatch])
 
-    const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
-        dispatch(updateTaskTitleTC(todolistId, id, newTitle))
+    const changeTaskTitle = useCallback((id: string, title: string, todolistId: string) => {
+        dispatch(updateTaskTC(todolistId, id, {title}))
     }, [dispatch])
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
