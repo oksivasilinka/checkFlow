@@ -1,9 +1,9 @@
 import {Dispatch} from "redux";
 import {RESULT_CODES, todolistApi} from "../api/todolist-api";
 import {AxiosResponse} from "axios";
-import {FilterValuesType, TodolistType} from "../App";
-import {RequestStatusType, SetErrorType, setStatus, SetStatusType} from "./tests/app-reducer";
+import {RequestStatusType, SetErrorType, setStatus, SetStatusType} from "./app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/utils-error";
+import {FilterValuesType, TodolistType} from "../TodolistsList";
 
 
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>

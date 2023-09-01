@@ -5,7 +5,7 @@ import {
 } from "../api/todolist-api";
 import axios, {AxiosResponse} from "axios";
 import {AppRootStateType} from "./store";
-import {SetErrorType, setStatus, SetStatusType} from "./tests/app-reducer";
+import {SetErrorType, setStatus, SetStatusType} from "./app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/utils-error";
 
 export type TasksStateType = { [key: string]: TaskType[] }

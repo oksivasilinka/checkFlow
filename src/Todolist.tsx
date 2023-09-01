@@ -7,9 +7,9 @@ import Button, {ButtonProps} from "@mui/material/Button";
 import {Task} from "./Task";
 import {getTaskTC} from "./state/tasks-reducer";
 import {useAppDispatch} from "./state/store";
-import {FilterValuesType} from "./App";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
-import {RequestStatusType} from "./state/tests/app-reducer";
+import {RequestStatusType} from "./state/app-reducer";
+import {FilterValuesType} from "./TodolistsList";
 
 
 type PropsType = {

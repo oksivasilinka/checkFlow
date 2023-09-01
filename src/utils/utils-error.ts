@@ -1,4 +1,4 @@
-import {setError, setStatus} from "../state/tests/app-reducer";
+import {setError, setStatus} from "../state/app-reducer";
 import {Dispatch} from "redux";
 import {ResponseType} from "../api/todolist-api";
 
