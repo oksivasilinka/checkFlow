@@ -32,6 +32,7 @@ export const TodolistsList = () => {
     let dispatch = useAppDispatch()
 
     useEffect(() => {
+        if (!isLoggedIn) return
         dispatch(getTodolistTC())
     }, [])
 

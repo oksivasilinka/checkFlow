@@ -7,23 +7,36 @@ import Toolbar from "@mui/material/Toolbar/Toolbar";
 import Typography from "@mui/material/Typography/Typography";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Menu} from "@mui/icons-material";
-import {LinearProgress} from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import LinearProgress from "@mui/material/LinearProgress";
 import {ErrorSnackbar} from "./ErrorSnackBar";
 import {Login} from "./features/login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {TodolistsList} from "./TodolistsList";
 import {useAppDispatch, useAppSelector} from "./state/store";
 import {RequestStatusType} from "./state/app-reducer";
-import {meTC} from "./state/login-reducer";
+import {logoutTC, meTC} from "./state/login-reducer";
 
 
 function App() {
     let status = useAppSelector<RequestStatusType>(state => state.app.status)
+    let isInitialized = useAppSelector(state => state.app.isInitialized)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     let dispatch = useAppDispatch()
 
     useEffect(()=>{
         dispatch(meTC())
     },[])
+
+    const logOutHandler = () => {
+        dispatch(logoutTC())
+    }
+
+    if (!isInitialized) {
+        return <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
 
 
     return (
@@ -36,7 +49,7 @@ function App() {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button color="inherit" onClick={logOutHandler}>LogOut</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>

@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import {setStatus, SetStatusType} from "./app-reducer";
+import {setIsInitialized, SetIsInitializedType, setStatus, SetStatusType} from "./app-reducer";
 import {authApi} from "../api/todolist-api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/utils-error";
 
@@ -49,7 +49,28 @@ export const meTC = () => async(dispatch: Dispatch<ActionsType>) => {
     } catch (e) {
         handleServerNetworkError(dispatch, (e as {message: string}).message)
     }
+    finally {
+        dispatch(setIsInitialized(true))
+    }
 }
 
+
+export const logoutTC = () => async(dispatch: Dispatch<ActionsType>) => {
+    dispatch(setStatus('loading'))
+    try {
+        const res = await authApi.logout()
+        if (res.data.resultCode === 0) {
+            dispatch(setIsLoggedInAC(false))
+            dispatch(setStatus('succeeded'))
+        } else {
+            handleServerAppError(dispatch, res.data)
+        }
+    } catch (e) {
+        handleServerNetworkError(dispatch, (e as {message: string}).message)
+    }
+    finally {
+        dispatch(setIsInitialized(true))
+    }
+}
 // types
-type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetStatusType
+type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetStatusType | SetIsInitializedType
