@@ -23,13 +23,11 @@ export type TodolistType = {
 
 
 export const TodolistsList = () => {
-    let state = useAppSelector<AppRootStateType>(state => state)
+    const state = useAppSelector<AppRootStateType>(state => state)
 
-    let {tasks, todolists} = state
-    // let todolists = useSelector<AppRootStateType, TodolistType[]>(state => state.todolists)
-    // let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+    const {tasks, todolists} = state
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    let dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (!isLoggedIn) return

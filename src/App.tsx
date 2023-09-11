@@ -15,14 +15,14 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import {TodolistsList} from "./TodolistsList";
 import {useAppDispatch, useAppSelector} from "./state/store";
 import {RequestStatusType} from "./state/app-reducer";
-import {logoutTC, meTC} from "./state/login-reducer";
+import {logoutTC, meTC} from "./state/auth-reducer";
 
 
 function App() {
-    let status = useAppSelector<RequestStatusType>(state => state.app.status)
-    let isInitialized = useAppSelector(state => state.app.isInitialized)
+    const status = useAppSelector<RequestStatusType>(state => state.app.status)
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    let dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(()=>{
         dispatch(meTC())

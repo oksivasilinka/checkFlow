@@ -82,7 +82,8 @@ export const Todolist = memo((props: PropsType) => {
                         task={t}
                         changeTaskStatus={changeTaskStatus}
                         changeTaskTitle={changeTaskTitle}
-                        removeTask={removeTask}/>
+                        removeTask={removeTask}
+                    />
                 })
             }
         </div>

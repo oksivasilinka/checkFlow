@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux'
+import {Dispatch} from 'redux'
 import {setIsInitialized, SetIsInitializedType, setStatus, SetStatusType} from "./app-reducer";
 import {authApi} from "../api/todolist-api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/utils-error";
@@ -21,10 +21,10 @@ export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
 
 // thunks
-export const loginTC = (data: any) => async(dispatch: Dispatch<ActionsType>) => {
+export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setStatus('loading'))
     try {
-       const res = await authApi.login(data)
+        const res = await authApi.login(data)
         if (res.data.resultCode === 0) {
             dispatch(setIsLoggedInAC(true))
             dispatch(setStatus('succeeded'))
@@ -32,11 +32,13 @@ export const loginTC = (data: any) => async(dispatch: Dispatch<ActionsType>) => 
             handleServerAppError(dispatch, res.data)
         }
     } catch (e) {
-       handleServerNetworkError(dispatch, (e as {message: string}).message)
+        handleServerNetworkError(dispatch, (e as { message: string }).message)
+    } finally {
+        dispatch(setIsInitialized(true))
     }
 }
 
-export const meTC = () => async(dispatch: Dispatch<ActionsType>) => {
+export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setStatus('loading'))
     try {
         const res = await authApi.me()
@@ -47,15 +49,14 @@ export const meTC = () => async(dispatch: Dispatch<ActionsType>) => {
             handleServerAppError(dispatch, res.data)
         }
     } catch (e) {
-        handleServerNetworkError(dispatch, (e as {message: string}).message)
-    }
-    finally {
+        handleServerNetworkError(dispatch, (e as { message: string }).message)
+    } finally {
         dispatch(setIsInitialized(true))
     }
 }
 
 
-export const logoutTC = () => async(dispatch: Dispatch<ActionsType>) => {
+export const logoutTC = () => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setStatus('loading'))
     try {
         const res = await authApi.logout()
@@ -66,9 +67,8 @@ export const logoutTC = () => async(dispatch: Dispatch<ActionsType>) => {
             handleServerAppError(dispatch, res.data)
         }
     } catch (e) {
-        handleServerNetworkError(dispatch, (e as {message: string}).message)
-    }
-    finally {
+        handleServerNetworkError(dispatch, (e as { message: string }).message)
+    } finally {
         dispatch(setIsInitialized(true))
     }
 }

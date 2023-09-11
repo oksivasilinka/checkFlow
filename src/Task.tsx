@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import {Delete} from "@mui/icons-material";
 import React, {ChangeEvent, memo, useCallback} from "react";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {useAppSelector} from "./state/store";
 
 export type TaskPropsType = {
     task: TaskType
@@ -13,17 +14,18 @@ export type TaskPropsType = {
 }
 
 export const Task = memo(({
-                         task,
-                         changeTaskStatus,
-                         changeTaskTitle,
-                         removeTask
-                     }: TaskPropsType) => {
+                              task,
+                              changeTaskStatus,
+                              changeTaskTitle,
+                              removeTask
+                          }: TaskPropsType) => {
+    const status = useAppSelector(state => state.app.status)
 
 
     const onClickHandler = () => removeTask(task.id)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
-        changeTaskStatus(task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New );
+        changeTaskStatus(task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New);
     }
     const onTitleChangeHandler = useCallback((newValue: string) => {
         changeTaskTitle(task.id, newValue);
@@ -39,7 +41,7 @@ export const Task = memo(({
             />
 
             <EditableSpan value={task.title} onChange={onTitleChangeHandler}/>
-            <IconButton onClick={onClickHandler}>
+            <IconButton onClick={onClickHandler} disabled={status === 'loading'}>
                 <Delete/>
             </IconButton>
         </div>

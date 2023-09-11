@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
 import {useAppDispatch, useAppSelector} from "../../state/store";
-import {loginTC} from "../../state/login-reducer";
+import {loginTC} from "../../state/auth-reducer";
 import {Navigate} from "react-router-dom";
 
 type ErrorType = {

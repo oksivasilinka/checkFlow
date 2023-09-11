@@ -5,7 +5,7 @@ import {combineReducers, legacy_createStore} from "redux";
 import { tasksReducer } from '../state/tasks-reducer'
 import {todolistsReducer} from '../state/todolists-reducer';
 import {appReducer, RequestStatusType} from "../state/app-reducer";
-import {authReducer} from "../state/login-reducer";
+import {authReducer} from "../state/auth-reducer";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,

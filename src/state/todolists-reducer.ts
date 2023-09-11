@@ -128,7 +128,7 @@ export const updateTodolistTitleTC = (todolistId: string, title: string) => (dis
             if (res.data.resultCode === RESULT_CODES.OK) {
                 dispatch(changeTodolistTitleAC(todolistId, title))
                 dispatch(setStatus('succeeded'))
-            }else {
+            } else {
                 handleServerAppError(dispatch, res.data)
             }
         })
