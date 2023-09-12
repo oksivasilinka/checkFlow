@@ -1,20 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from "react";
-import {EditableSpan} from "../EditableSpan";
-
+import type { Meta, StoryObj } from "@storybook/react"
+import React from "react"
+import { EditableSpan } from "EditableSpan"
 
 // создаем компоненту
 const meta: Meta<typeof EditableSpan> = {
-  title: 'TODOLIST/EditableSpan',
+  title: "TODOLIST/EditableSpan",
   component: EditableSpan,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
-      value: 'value',
-      // onChange: action('onChange')
+    value: "value",
+    // onChange: action('onChange')
   },
 }
 
-export default meta;
-type Story = StoryObj<typeof EditableSpan>;
+export default meta
+type Story = StoryObj<typeof EditableSpan>
 
 export const EditableSpnStory: Story = {}

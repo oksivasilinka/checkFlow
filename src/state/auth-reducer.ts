@@ -1,76 +1,74 @@
-import {Dispatch} from 'redux'
-import {setIsInitialized, SetIsInitializedType, setStatus, SetStatusType} from "./app-reducer";
-import {authApi} from "../api/todolist-api";
-import {handleServerAppError, handleServerNetworkError} from "../utils/utils-error";
+import {authApi} from "api/todolist-api"
+import {handleServerAppError, handleServerNetworkError} from "utils/utils-error"
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AppDispatchType} from "state/store";
+import {appActions} from "state/app-reducer";
 
-const initialState = {
-    isLoggedIn: false
-}
-type InitialStateType = typeof initialState
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-    switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
-            return {...state, isLoggedIn: action.value}
-        default:
-            return state
+const slice = createSlice({
+    name: 'auth',
+    initialState: {
+        isLoggedIn: false,
+    },
+    reducers: {
+        setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
+            state.isLoggedIn = action.payload.isLoggedIn
+        }
     }
-}
-// actions
-export const setIsLoggedInAC = (value: boolean) =>
-    ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+})
+
+export const authReducer = slice.reducer
+export const authActions = slice.actions
+
 
 // thunks
-export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setStatus('loading'))
+export const loginTC = (data: any) => async (dispatch: AppDispatchType) => {
+    dispatch(appActions.setStatus({status: "loading"}))
     try {
         const res = await authApi.login(data)
         if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(setStatus('succeeded'))
+            dispatch(authActions.setIsLoggedIn({isLoggedIn: true}))
+            dispatch(appActions.setStatus({status: "succeeded"}))
         } else {
             handleServerAppError(dispatch, res.data)
         }
     } catch (e) {
         handleServerNetworkError(dispatch, (e as { message: string }).message)
     } finally {
-        dispatch(setIsInitialized(true))
+        dispatch(appActions.setIsInitialized({isInitialized: true}))
     }
 }
 
-export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setStatus('loading'))
+export const meTC = () => async (dispatch: AppDispatchType) => {
+    dispatch(appActions.setStatus({status: "loading"}))
     try {
         const res = await authApi.me()
         if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(setStatus('succeeded'))
+            dispatch(authActions.setIsLoggedIn({isLoggedIn: true}))
+            dispatch(appActions.setStatus({status: "succeeded"}))
         } else {
             handleServerAppError(dispatch, res.data)
         }
     } catch (e) {
         handleServerNetworkError(dispatch, (e as { message: string }).message)
     } finally {
-        dispatch(setIsInitialized(true))
+        dispatch(appActions.setIsInitialized({isInitialized: true}))
     }
 }
 
-
-export const logoutTC = () => async (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setStatus('loading'))
+export const logoutTC = () => async (dispatch: AppDispatchType) => {
+    dispatch(appActions.setStatus({status: "loading"}))
     try {
         const res = await authApi.logout()
         if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(false))
-            dispatch(setStatus('succeeded'))
+            dispatch(authActions.setIsLoggedIn({isLoggedIn: false}))
+            dispatch(appActions.setStatus({status: "succeeded"}))
         } else {
             handleServerAppError(dispatch, res.data)
         }
     } catch (e) {
         handleServerNetworkError(dispatch, (e as { message: string }).message)
     } finally {
-        dispatch(setIsInitialized(true))
+        dispatch(appActions.setIsInitialized({isInitialized: true}))
     }
 }
-// types
-type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetStatusType | SetIsInitializedType
