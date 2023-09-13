@@ -1,18 +1,19 @@
 import {todolistsActions} from "./todolists-reducer"
 import {Dispatch} from "redux"
-import {ErrorType, RESULT_CODES, TaskType, todolistApi, UpdateDomainTaskModel, UpdateTaskModel} from "api/todolist-api"
+import {Error, RESULT_CODES, TaskType, todolistApi, UpdateDomainTaskModel, UpdateTaskModel} from "api/todolist-api"
 import axios from "axios"
-import {AppDispatchType, AppRootStateType} from "./store"
+import {AppDispatch, AppRootState} from "./store"
 import {handleServerAppError, handleServerNetworkError} from "utils/utils-error"
 import {appActions} from "state/app-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {clearTasksAndTodolists} from "common/actions/common.actions";
 
-export type TasksStateType = { [key: string]: TaskType[] }
+export type TasksState = { [key: string]: TaskType[] }
 
 
 const slice = createSlice({
     name: 'tasks',
-    initialState: {} as TasksStateType,
+    initialState: {} as TasksState,
     reducers: {
         removeTask: (state, action: PayloadAction<{ id: string, todolistId: string }>) => {
             const tasks = state[action.payload.todolistId]
@@ -34,7 +35,7 @@ const slice = createSlice({
             state[action.payload.todolistId] = action.payload.tasks
         },
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
             .addCase(todolistsActions.addTodolist, (state, action) => {
                 state[action.payload.todolist.id] = []
@@ -47,6 +48,9 @@ const slice = createSlice({
                     state[el.id] = []
                 })
                 return state
+            })
+            .addCase(clearTasksAndTodolists.type, ( ) => {
+                return {}
             })
     }
 })
@@ -62,11 +66,11 @@ export const getTaskTC = (todolistId: string) => async (dispatch: Dispatch) => {
         dispatch(tasksActions.setTask({todolistId, tasks: res.data.items}))
         dispatch(appActions.setStatus({status: "succeeded"}))
     } catch (e) {
-        handleServerNetworkError(dispatch, (e as ErrorType).message)
+        handleServerNetworkError(dispatch, (e as Error).message)
     }
 }
 
-export const deleteTaskTC = (todolistId: string, id: string) => async (dispatch: AppDispatchType) => {
+export const deleteTaskTC = (todolistId: string, id: string) => async (dispatch: AppDispatch) => {
     dispatch(appActions.setStatus({status: "loading"}))
     try {
         const res = await todolistApi.deleteTask(todolistId, id)
@@ -77,11 +81,11 @@ export const deleteTaskTC = (todolistId: string, id: string) => async (dispatch:
             handleServerAppError(dispatch, res.data)
         }
     } catch (e) {
-        handleServerNetworkError(dispatch, (e as ErrorType).message)
+        handleServerNetworkError(dispatch, (e as Error).message)
     }
 }
 
-export const addTaskTC = (todolistId: string, title: string) => async (dispatch: AppDispatchType) => {
+export const addTaskTC = (todolistId: string, title: string) => async (dispatch: AppDispatch) => {
     dispatch(appActions.setStatus({status: "loading"}))
     try {
         const res = await todolistApi.addTasks(todolistId, title)
@@ -96,13 +100,13 @@ export const addTaskTC = (todolistId: string, title: string) => async (dispatch:
             const error = e.response ? e.response.data.error : e.message
             handleServerNetworkError(dispatch, error)
         }
-        handleServerNetworkError(dispatch, (e as ErrorType).message)
+        handleServerNetworkError(dispatch, (e as Error).message)
     }
 }
 
 export const updateTaskTC =
     (todolistId: string, id: string, domainModel: UpdateDomainTaskModel) =>
-        async (dispatch: AppDispatchType, getState: () => AppRootStateType) => {
+        async (dispatch: AppDispatch, getState: () => AppRootState) => {
             let task = getState().tasks[todolistId].find((t) => t.id === id)
             if (task) {
                 const model: UpdateTaskModel = {
@@ -124,7 +128,7 @@ export const updateTaskTC =
                         handleServerAppError(dispatch, res.data)
                     }
                 } catch (e) {
-                    handleServerNetworkError(dispatch, (e as ErrorType).message)
+                    handleServerNetworkError(dispatch, (e as Error).message)
                 }
             }
         }

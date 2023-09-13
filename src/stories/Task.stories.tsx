@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { action } from "@storybook/addon-actions"
 import React, { FC, useState } from "react"
-import { Task, TaskPropsType } from "Task"
+import { Task, TaskProps } from "Task"
 
 const meta: Meta<typeof Task> = {
   title: "TODOLIST/Task",
@@ -26,7 +26,7 @@ export const TaskIsNotDoneStory: Story = {
   },
 }
 
-const TaskWithHook: FC<TaskPropsType> = (args) => {
+const TaskWithHook: FC<TaskProps> = (args) => {
   const [task, setTask] = useState(args.task)
   const changeTaskStatus = () => {
     // setTask({...task, isDone: !task.isDone})

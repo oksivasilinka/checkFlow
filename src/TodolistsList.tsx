@@ -10,18 +10,19 @@ import {
 } from "state/todolists-reducer"
 import {useAppDispatch, useAppSelector} from "state/store"
 import {Navigate} from "react-router-dom"
+import {selectIsLoggedIn, selectTasks, selectTodolists} from "common/selectors/selectors";
 
-export type FilterValuesType = "all" | "active" | "completed"
+export type FilterValues = "all" | "active" | "completed"
 export type TodolistType = {
     id: string
     title: string
-    filter: FilterValuesType
+    filter: FilterValues
 }
 
 export const TodolistsList = () => {
-    const todolists = useAppSelector((state) => state.todolists)
-    const tasks = useAppSelector((state) => state.tasks)
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const todolists = useAppSelector(selectTodolists)
+    const tasks = useAppSelector(selectTasks)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -59,7 +60,7 @@ export const TodolistsList = () => {
     )
 
     const changeFilter = useCallback(
-        (filter: FilterValuesType, todolistId: string) => {
+        (filter: FilterValues, todolistId: string) => {
             dispatch(todolistsActions.changeTodolistFilter({todolistId, filter}))
         },
         [dispatch],

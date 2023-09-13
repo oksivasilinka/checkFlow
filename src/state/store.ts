@@ -17,11 +17,11 @@ export const store = configureStore({
     }
 })
 
-export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppRootState = ReturnType<typeof store.getState>
 
-export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
+export type AppDispatch = ThunkDispatch<AppRootState, unknown, AnyAction>
 
-export const useAppDispatch = useDispatch<AppDispatchType>;
-export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+export const useAppDispatch = useDispatch<AppDispatch>;
+export const useAppSelector: TypedUseSelectorHook<AppRootState> = useSelector
 // @ts-ignore
 window.store = store

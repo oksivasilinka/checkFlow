@@ -1,10 +1,10 @@
 import React from "react"
 import { Provider } from "react-redux"
-import { AppRootStateType } from "state/store"
+import { AppRootState } from "state/store"
 import { combineReducers, legacy_createStore } from "redux"
 import { tasksReducer } from "state/tasks-reducer"
 import { todolistsReducer } from "state/todolists-reducer"
-import { appReducer, RequestStatusType } from "state/app-reducer"
+import { appReducer, RequestStatus } from "state/app-reducer"
 import { authReducer } from "state/auth-reducer"
 
 const rootReducer = combineReducers({
@@ -18,7 +18,7 @@ const initialGlobalState = {
   todolists: [],
   tasks: {},
   app: {
-    status: "loading" as RequestStatusType,
+    status: "loading" as RequestStatus,
     error: null as null | string,
     isInitialized: false,
   },
@@ -27,7 +27,7 @@ const initialGlobalState = {
   },
 }
 
-export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState as AppRootStateType)
+export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState as AppRootState)
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {
   return <Provider store={storyBookStore}>{storyFn()}</Provider>

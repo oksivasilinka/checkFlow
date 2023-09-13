@@ -1,13 +1,13 @@
-import { ResponseType } from "api/todolist-api"
+import { Response } from "api/todolist-api"
 import {appActions} from "state/app-reducer";
-import {AppDispatchType} from "state/store";
+import {AppDispatch} from "state/store";
 
-export const handleServerNetworkError = (dispatch: AppDispatchType, error: string) => {
+export const handleServerNetworkError = (dispatch: AppDispatch, error: string) => {
   dispatch(appActions.setError({error}))
   dispatch(appActions.setStatus({status: "failed"}))
 }
 
-export const handleServerAppError = <T>(dispatch: AppDispatchType, data: ResponseType<T>) => {
+export const handleServerAppError = <T>(dispatch: AppDispatch, data: Response<T>) => {
   const error = data.messages[0]
 
   if (error) {

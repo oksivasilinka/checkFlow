@@ -6,14 +6,14 @@ import React, { ChangeEvent, memo, useCallback } from "react"
 import { TaskStatuses, TaskType } from "api/todolist-api"
 import { useAppSelector } from "state/store"
 
-export type TaskPropsType = {
+export type TaskProps = {
   task: TaskType
   changeTaskStatus: (id: string, status: TaskStatuses) => void
   changeTaskTitle: (taskId: string, newTitle: string) => void
   removeTask: (taskId: string) => void
 }
 
-export const Task = memo(({ task, changeTaskStatus, changeTaskTitle, removeTask }: TaskPropsType) => {
+export const Task = memo(({ task, changeTaskStatus, changeTaskTitle, removeTask }: TaskProps) => {
   const status = useAppSelector((state) => state.app.status)
 
   const onClickHandler = () => removeTask(task.id)

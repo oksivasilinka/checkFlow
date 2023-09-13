@@ -1,17 +1,17 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
+export type RequestStatus = "idle" | "loading" | "succeeded" | "failed"
 
 
 const slice = createSlice({
   name: 'app',
   initialState: {
-    status: "loading" as RequestStatusType,
+    status: "loading" as RequestStatus,
     error: null as string | null,
     isInitialized: false
   },
   reducers: {
-    setStatus: (state, action: PayloadAction<{status: RequestStatusType}>) => {
+    setStatus: (state, action: PayloadAction<{status: RequestStatus}>) => {
       state.status = action.payload.status
     },
     setError: (state, action: PayloadAction<{error: null | string}>) => {

@@ -8,25 +8,25 @@ import { Task } from "Task"
 import { getTaskTC } from "state/tasks-reducer"
 import { useAppDispatch } from "state/store"
 import { TaskStatuses, TaskType } from "api/todolist-api"
-import { RequestStatusType } from "state/app-reducer"
-import { FilterValuesType } from "TodolistsList"
+import { RequestStatus } from "state/app-reducer"
+import { FilterValues } from "TodolistsList"
 
-type PropsType = {
+type TodolistProps = {
   id: string
-  entityStatus: RequestStatusType
+  entityStatus: RequestStatus
   title: string
-  tasks: Array<TaskType>
+  tasks:TaskType[]
   removeTask: (taskId: string, todolistId: string) => void
-  changeFilter: (value: FilterValuesType, todolistId: string) => void
+  changeFilter: (value: FilterValues, todolistId: string) => void
   addTask: (title: string, todolistId: string) => void
   changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
   removeTodolist: (id: string) => void
   changeTodolistTitle: (id: string, newTitle: string) => void
-  filter: FilterValuesType
+  filter: FilterValues
   changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
 }
 
-export const Todolist = memo((props: PropsType) => {
+export const Todolist = memo((props: TodolistProps) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {

@@ -1,8 +1,9 @@
 import {authApi} from "api/todolist-api"
 import {handleServerAppError, handleServerNetworkError} from "utils/utils-error"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppDispatchType} from "state/store";
+import {AppDispatch} from "state/store";
 import {appActions} from "state/app-reducer";
+import {clearTasksAndTodolists} from "common/actions/common.actions";
 
 
 const slice = createSlice({
@@ -22,7 +23,7 @@ export const authActions = slice.actions
 
 
 // thunks
-export const loginTC = (data: any) => async (dispatch: AppDispatchType) => {
+export const loginTC = (data: any) => async (dispatch: AppDispatch) => {
     dispatch(appActions.setStatus({status: "loading"}))
     try {
         const res = await authApi.login(data)
@@ -39,7 +40,7 @@ export const loginTC = (data: any) => async (dispatch: AppDispatchType) => {
     }
 }
 
-export const meTC = () => async (dispatch: AppDispatchType) => {
+export const meTC = () => async (dispatch: AppDispatch) => {
     dispatch(appActions.setStatus({status: "loading"}))
     try {
         const res = await authApi.me()
@@ -56,13 +57,14 @@ export const meTC = () => async (dispatch: AppDispatchType) => {
     }
 }
 
-export const logoutTC = () => async (dispatch: AppDispatchType) => {
+export const logoutTC = () => async (dispatch: AppDispatch) => {
     dispatch(appActions.setStatus({status: "loading"}))
     try {
         const res = await authApi.logout()
         if (res.data.resultCode === 0) {
             dispatch(authActions.setIsLoggedIn({isLoggedIn: false}))
             dispatch(appActions.setStatus({status: "succeeded"}))
+            dispatch(clearTasksAndTodolists())
         } else {
             handleServerAppError(dispatch, res.data)
         }

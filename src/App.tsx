@@ -14,13 +14,13 @@ import {Login} from "features/login/Login"
 import {Navigate, Route, Routes} from "react-router-dom"
 import {TodolistsList} from "TodolistsList"
 import {useAppDispatch, useAppSelector} from "state/store"
-import {RequestStatusType} from "state/app-reducer"
 import {logoutTC, meTC} from "state/auth-reducer"
+import {selectIsInitialized, selectIsLoggedIn, selectStatus} from "common/selectors/selectors";
 
 function App() {
-    const status = useAppSelector<RequestStatusType>((state) => state.app.status)
-    const isInitialized = useAppSelector((state) => state.app.isInitialized)
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const status = useAppSelector(selectStatus)
+    const isInitialized = useAppSelector(selectIsInitialized)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
