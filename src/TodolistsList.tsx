@@ -1,18 +1,22 @@
-import Grid from "@mui/material/Grid/Grid"
-import {AddItemForm} from "AddItemForm"
-import Paper from "@mui/material/Paper/Paper"
-import {Todolist} from "Todolist"
-import React, {useCallback, useEffect} from "react"
-import {addTaskTC, deleteTaskTC, updateTaskTC} from "state/tasks-reducer"
-import {TaskStatuses} from "api/todolist-api"
+import Grid from '@mui/material/Grid/Grid'
+import { AddItemForm } from 'AddItemForm'
+import Paper from '@mui/material/Paper/Paper'
+import { Todolist } from 'Todolist'
+import React, { useCallback, useEffect } from 'react'
+import { addTaskTC, deleteTaskTC, updateTaskTC } from 'state/tasks-reducer'
+import { TaskStatuses } from 'api/todolist-api'
 import {
-    addTodolistTC, deleteTodolistTC, getTodolistTC, todolistsActions, updateTodolistTitleTC,
-} from "state/todolists-reducer"
-import {useAppDispatch, useAppSelector} from "state/store"
-import {Navigate} from "react-router-dom"
-import {selectIsLoggedIn, selectTasks, selectTodolists} from "common/selectors/selectors";
+    addTodolistTC,
+    deleteTodolistTC,
+    getTodolistTC,
+    todolistsActions,
+    updateTodolistTitleTC,
+} from 'state/todolists-reducer'
+import { useAppDispatch, useAppSelector } from 'state/store'
+import { Navigate } from 'react-router-dom'
+import { selectIsLoggedIn, selectTasks, selectTodolists } from 'common/selectors/selectors'
 
-export type FilterValues = "all" | "active" | "completed"
+export type FilterValues = 'all' | 'active' | 'completed'
 export type TodolistType = {
     id: string
     title: string
@@ -26,7 +30,6 @@ export const TodolistsList = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        console.log(todolists)
         if (!isLoggedIn) return
         dispatch(getTodolistTC())
     }, [])
@@ -47,21 +50,21 @@ export const TodolistsList = () => {
 
     const changeStatus = useCallback(
         (id: string, status: TaskStatuses, todolistId: string) => {
-            dispatch(updateTaskTC(todolistId, id, {status}))
+            dispatch(updateTaskTC(todolistId, id, { status }))
         },
         [dispatch],
     )
 
     const changeTaskTitle = useCallback(
         (id: string, title: string, todolistId: string) => {
-            dispatch(updateTaskTC(todolistId, id, {title}))
+            dispatch(updateTaskTC(todolistId, id, { title }))
         },
         [dispatch],
     )
 
     const changeFilter = useCallback(
         (filter: FilterValues, todolistId: string) => {
-            dispatch(todolistsActions.changeTodolistFilter({todolistId, filter}))
+            dispatch(todolistsActions.changeTodolistFilter({ todolistId, filter }))
         },
         [dispatch],
     )
@@ -88,13 +91,13 @@ export const TodolistsList = () => {
     )
 
     if (!isLoggedIn) {
-        return <Navigate to={"login"}/>
+        return <Navigate to={'login'} />
     }
 
     return (
         <>
-            <Grid container style={{padding: "20px"}}>
-                <AddItemForm addItem={addTodolist}/>
+            <Grid container style={{ padding: '20px' }}>
+                <AddItemForm addItem={addTodolist} />
             </Grid>
             <Grid container spacing={3}>
                 {todolists?.map((tl) => {
@@ -102,7 +105,7 @@ export const TodolistsList = () => {
 
                     return (
                         <Grid key={tl.id} item>
-                            <Paper style={{padding: "10px"}}>
+                            <Paper style={{ padding: '10px' }}>
                                 <Todolist
                                     id={tl.id}
                                     entityStatus={tl.entityStatus}
