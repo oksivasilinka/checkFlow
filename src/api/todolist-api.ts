@@ -28,20 +28,20 @@ export const todolistApi = {
     getTasks(todolistId: string) {
         return instance.get<GetTaskResponse>(`/todo-lists/${todolistId}/tasks`)
     },
-    addTasks(todolistId: string, title: string) {
+    addTasks(arg: AddTaskArgs) {
         return instance.post<
             Response<{ item: TaskType }>,
             AxiosResponse<Response<{ item: TaskType }>>,
             { title: string }
-        >(`/todo-lists/${todolistId}/tasks`, { title })
+        >(`/todo-lists/${arg.todolistId}/tasks`, { title: arg.title })
     },
-    deleteTask(todolistId: string, taskId: string) {
-        return instance.delete<Response>(`todo-lists/${todolistId}/tasks/${taskId}`)
+    deleteTask(arg: DeleteTaskArgs) {
+        return instance.delete<Response>(`todo-lists/${arg.todolistId}/tasks/${arg.id}`)
     },
-    updateTask(todolistId: string, model: UpdateTaskModel, taskId: string) {
+    updateTask(todolistId: string, domainModel: UpdateTaskModel, id: string) {
         return instance.put<Response<{ item: TaskType }>, AxiosResponse<Response<{ item: TaskType }>>, UpdateTaskModel>(
-            `todo-lists/${todolistId}/tasks/${taskId}`,
-            model,
+            `todo-lists/${todolistId}/tasks/${id}`,
+            domainModel,
         )
     },
 }
@@ -56,6 +56,21 @@ export const authApi = {
     logout() {
         return instance.delete<Response>(`/auth/login`)
     },
+}
+export type AddTaskArgs = {
+    todolistId: string
+    title: string
+}
+
+export type DeleteTaskArgs = {
+    todolistId: string
+    id: string
+}
+
+export type UpdateTaskArgs = {
+    todolistId: string
+    domainModel: UpdateDomainTaskModel
+    id: string
 }
 
 type AuthMe = {

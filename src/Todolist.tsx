@@ -5,11 +5,11 @@ import IconButton from '@mui/material/IconButton/IconButton'
 import { Delete } from '@mui/icons-material'
 import Button, { ButtonProps } from '@mui/material/Button'
 import { Task } from 'Task'
-import { getTaskTC } from 'state/tasks-reducer'
 import { useAppDispatch } from 'state/store'
 import { TaskStatuses, TaskType } from 'api/todolist-api'
 import { RequestStatus } from 'state/app-reducer'
 import { FilterValues } from 'TodolistsList'
+import { tasksThunks } from 'state/tasks-reducer'
 
 type TodolistProps = {
     id: string
@@ -30,7 +30,7 @@ export const Todolist = memo((props: TodolistProps) => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(getTaskTC(props.id))
+        dispatch(tasksThunks.fetchTasks(props.id))
     }, [])
 
     const addTask = useCallback(

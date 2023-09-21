@@ -70,7 +70,7 @@ export const CreateTask = () => {
     const title = 'it-incubator'
     const todolistId = 'c6a02fab-8d63-4509-9d50-f2390df61302'
     useEffect(() => {
-        todolistApi.addTasks(todolistId, title).then((res) => {
+        todolistApi.addTasks({ todolistId, title }).then((res) => {
             setState(res.data)
         })
     }, [])
@@ -83,7 +83,7 @@ export const DeleteTask = () => {
     const todolistId = 'c6a02fab-8d63-4509-9d50-f2390df61302'
     const id = 'c1083b25-4b5b-4db6-b24b-92d92dca4ee5'
     useEffect(() => {
-        todolistApi.deleteTask(todolistId, id).then((res) => {
+        todolistApi.deleteTask({ todolistId, id }).then((res) => {
             setState(res.data)
         })
     }, [])

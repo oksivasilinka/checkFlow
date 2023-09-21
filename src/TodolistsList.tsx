@@ -3,7 +3,7 @@ import { AddItemForm } from 'AddItemForm'
 import Paper from '@mui/material/Paper/Paper'
 import { Todolist } from 'Todolist'
 import React, { useCallback, useEffect } from 'react'
-import { addTaskTC, deleteTaskTC, updateTaskTC } from 'state/tasks-reducer'
+import { addTasks, deleteTasks, tasksThunks } from 'state/tasks-reducer'
 import { TaskStatuses } from 'api/todolist-api'
 import {
     addTodolistTC,
@@ -36,28 +36,28 @@ export const TodolistsList = () => {
 
     const removeTask = useCallback(
         (id: string, todolistId: string) => {
-            dispatch(deleteTaskTC(todolistId, id))
+            dispatch(deleteTasks({ todolistId, id }))
         },
         [dispatch],
     )
 
     const addTask = useCallback(
         (title: string, todolistId: string) => {
-            dispatch(addTaskTC(todolistId, title))
+            dispatch(addTasks({ todolistId, title }))
         },
         [dispatch],
     )
 
     const changeStatus = useCallback(
         (id: string, status: TaskStatuses, todolistId: string) => {
-            dispatch(updateTaskTC(todolistId, id, { status }))
+            dispatch(tasksThunks.updateTask({ todolistId, domainModel: { status }, id }))
         },
         [dispatch],
     )
 
     const changeTaskTitle = useCallback(
         (id: string, title: string, todolistId: string) => {
-            dispatch(updateTaskTC(todolistId, id, { title }))
+            dispatch(tasksThunks.updateTask({ todolistId, domainModel: { title }, id }))
         },
         [dispatch],
     )
