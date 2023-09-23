@@ -14,3 +14,8 @@ export const ResultCode = {
 export type Error = {
     message: string
 }
+
+export type updateTodolistArgs = {
+    todolistId: string
+    title: string
+}

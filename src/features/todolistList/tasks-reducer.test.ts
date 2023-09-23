@@ -1,6 +1,6 @@
 import { tasksReducer, TasksState, tasksThunks } from 'features/todolistList/tasks-reducer'
 import { v1 } from 'uuid'
-import { todolistsActions } from 'features/todolistList/todolists-reducer'
+import { todolistsThunks } from 'features/todolistList/todolists-reducer'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
 
 let startState: TasksState
@@ -87,10 +87,8 @@ beforeEach(() => {
 })
 
 test('correct task should be deleted from correct array', () => {
-    const action = tasksThunks.deleteTasks.fulfilled({ id: '2', todolistId: 'todolistId2' }, 'requestId', {
-        id: '2',
-        todolistId: 'todolistId2',
-    })
+    const args = { id: '2', todolistId: 'todolistId2' }
+    const action = tasksThunks.deleteTasks.fulfilled(args, 'requestId', args)
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId1'].length).toBe(3)
@@ -127,11 +125,7 @@ test('correct task should be added to correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-    const model = {
-        id: '2',
-        domainModel: { status: TaskStatuses.New },
-        todolistId: 'todolistId2',
-    }
+    const model = { id: '2', model: { status: TaskStatuses.New }, todolistId: 'todolistId2' }
     const action = tasksThunks.updateTask.fulfilled(model, 'requestId', model)
 
     const endState = tasksReducer(startState, action)
@@ -143,7 +137,7 @@ test('status of specified task should be changed', () => {
 test('title of specified task should be changed', () => {
     const model = {
         id: '2',
-        domainModel: { title: 'Milkyway' },
+        model: { title: 'Milkyway' },
         todolistId: 'todolistId2',
     }
     const action = tasksThunks.updateTask.fulfilled(model, 'requestId', model)
@@ -154,27 +148,21 @@ test('title of specified task should be changed', () => {
 })
 
 test('new property with new array should be added when new todolist is added', () => {
-    const action = todolistsActions.addTodolist({
-        todolist: {
-            id: v1(),
-            title: 'title no matter',
-            filter: 'all',
-        },
-    })
+    const todolist = { id: v1(), title: 'title no matter', addedDate: '', order: 0 }
+    const action = todolistsThunks.addTodolist.fulfilled({ todolist }, 'requestId', { title: todolist.title })
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)
     const newKey = keys.find((k) => k != 'todolistId1' && k != 'todolistId2')
-    if (!newKey) {
-        throw Error('new key should be added')
-    }
+    if (!newKey) throw Error('new key should be added')
 
     expect(keys.length).toBe(3)
     expect(endState[newKey]).toStrictEqual([])
 })
 
 test('propertry with todolistId should be deleted', () => {
-    const action = todolistsActions.removeTodolist({ todolistId: 'todolistId2' })
+    const args = { todolistId: 'todolistId2' }
+    const action = todolistsThunks.removeTodolist.fulfilled(args, 'requestId', args)
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)

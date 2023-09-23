@@ -3,7 +3,7 @@ import { todolistsReducer } from 'features/todolistList/todolists-reducer'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { appReducer } from 'app/app-reducer'
+import { appReducer } from 'app/appReducer'
 import { authReducer } from 'features/auth/auth-reducer'
 import { configureStore } from '@reduxjs/toolkit'
 

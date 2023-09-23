@@ -4,7 +4,7 @@ import { AppRootState } from 'app/store'
 import { combineReducers, legacy_createStore } from 'redux'
 import { tasksReducer } from 'features/todolistList/tasks-reducer'
 import { todolistsReducer } from 'features/todolistList/todolists-reducer'
-import { appReducer, RequestStatus } from 'app/app-reducer'
+import { appReducer, RequestStatus } from 'app/appReducer'
 import { authReducer } from 'features/auth/auth-reducer'
 
 const rootReducer = combineReducers({

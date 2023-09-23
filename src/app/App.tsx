@@ -9,13 +9,13 @@ import IconButton from '@mui/material/IconButton/IconButton'
 import { Menu } from '@mui/icons-material'
 import CircularProgress from '@mui/material/CircularProgress'
 import LinearProgress from '@mui/material/LinearProgress'
-import { Login } from 'features/auth/Login'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { TodolistsList } from 'features/todolistList/TodolistsList'
-import { useAppDispatch, useAppSelector } from 'app/store'
-import { logoutTC, meTC } from 'features/auth/auth-reducer'
-import { selectIsInitialized, selectIsLoggedIn, selectStatus } from 'app/appSelectors'
+import { authThunks } from 'features/auth/auth-reducer'
 import { ErrorSnackbar } from 'common/components'
+import { TodolistsList } from 'features/todolistList'
+import { useAppDispatch, useAppSelector } from 'app/store'
+import { selectIsInitialized, selectIsLoggedIn, selectStatus } from 'app/appSelectors'
+import { Login } from 'features/auth'
 
 function App() {
     const status = useAppSelector(selectStatus)
@@ -24,11 +24,11 @@ function App() {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(meTC())
+        dispatch(authThunks.me())
     }, [])
 
     const logOutHandler = () => {
-        dispatch(logoutTC())
+        dispatch(authThunks.logout())
     }
 
     if (!isInitialized) {
