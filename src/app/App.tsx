@@ -14,8 +14,9 @@ import { authThunks } from 'features/auth/auth-reducer'
 import { ErrorSnackbar } from 'common/components'
 import { TodolistsList } from 'features/todolistList'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { selectIsInitialized, selectIsLoggedIn, selectStatus } from 'app/appSelectors'
+import { selectIsInitialized, selectStatus } from 'app/appSelectors'
 import { Login } from 'features/auth'
+import { selectIsLoggedIn } from 'features/auth/authSelectors'
 
 function App() {
     const status = useAppSelector(selectStatus)

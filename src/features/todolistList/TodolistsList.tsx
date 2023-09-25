@@ -7,7 +7,9 @@ import { TaskStatuses } from 'common/enums'
 import { Todolist } from 'features/todolistList/todolist'
 import { todolistsActions, todolistsThunks, tasksThunks } from 'features/todolistList'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { selectIsLoggedIn, selectTasks, selectTodolists } from 'app/appSelectors'
+import { selectTodolists } from 'features/todolistList/todolistsSelectors'
+import { selectTasks } from 'features/todolistList/tasksSelectors'
+import { selectIsLoggedIn } from 'features/auth/authSelectors'
 
 export type FilterValues = 'all' | 'active' | 'completed'
 export type TodolistType = {

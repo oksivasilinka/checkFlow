@@ -10,8 +10,8 @@ import Button from '@mui/material/Button'
 import { useFormik } from 'formik'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import { Navigate } from 'react-router-dom'
-import { selectIsLoggedIn } from 'app/appSelectors'
 import { authThunks } from 'features/auth/auth-reducer'
+import { selectIsLoggedIn } from 'features/auth/authSelectors'
 
 type ErrorType = {
     email?: string
