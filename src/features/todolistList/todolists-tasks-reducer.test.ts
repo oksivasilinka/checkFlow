@@ -6,7 +6,7 @@ test('ids should be equals', () => {
     const startTasksState: TasksState = {}
     const startTodolistsState: Array<TodolistDomain> = []
 
-    const action = todolistsThunks.addTodolist.fulfilled(
+    const action = todolistsThunks.addTodolists.fulfilled(
         {
             todolist: {
                 id: v1(),

@@ -13,23 +13,24 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { authThunks } from 'features/auth/auth-reducer'
 import { ErrorSnackbar } from 'common/components'
 import { TodolistsList } from 'features/todolistList'
-import { useAppDispatch, useAppSelector } from 'app/store'
+import { useAppSelector } from 'app/store'
 import { selectIsInitialized, selectStatus } from 'app/appSelectors'
 import { Login } from 'features/auth'
 import { selectIsLoggedIn } from 'features/auth/authSelectors'
+import { useActions } from 'common/hooks/useActions'
 
 function App() {
     const status = useAppSelector(selectStatus)
     const isInitialized = useAppSelector(selectIsInitialized)
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
-    const dispatch = useAppDispatch()
+    const { me, logout } = useActions(authThunks)
 
     useEffect(() => {
-        dispatch(authThunks.me())
+        me()
     }, [])
 
     const logOutHandler = () => {
-        dispatch(authThunks.logout())
+        logout()
     }
 
     if (!isInitialized) {

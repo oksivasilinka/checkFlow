@@ -141,4 +141,9 @@ const updateTodolistTitle = createAppAsyncThunk<updateTodolistArgs, updateTodoli
 
 export const todolistsReducer = slice.reducer
 export const todolistsActions = slice.actions
-export const todolistsThunks = { updateTodolistTitle, addTodolist, removeTodolist, fetchTodolists }
+export const todolistsThunks = {
+    updateTodolistTitle,
+    addTodolists: addTodolist,
+    removeTodolists: removeTodolist,
+    fetchTodolists,
+}

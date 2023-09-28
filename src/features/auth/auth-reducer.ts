@@ -5,6 +5,7 @@ import { ResultCode } from 'features/todolistList/todolistsApiTypes'
 import { authApi } from 'features/auth/authApi'
 import type { FormType } from 'features/auth'
 import { appActions } from 'app/appReducer'
+import { BaseResponse } from 'common/types'
 
 const slice = createSlice({
     name: 'auth',
@@ -26,25 +27,28 @@ const slice = createSlice({
     },
 })
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, FormType>('auth/login', async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
-    try {
-        dispatch(appActions.setStatus({ status: 'loading' }))
-        const res = await authApi.login(arg)
-        if (res.data.resultCode === 0) {
-            dispatch(appActions.setStatus({ status: 'succeeded' }))
-            return { isLoggedIn: true }
-        } else {
-            handleServerAppError(dispatch, res.data)
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, FormType, { rejectValue: BaseResponse | null }>(
+    'auth/login',
+    async (arg, thunkAPI) => {
+        const { dispatch, rejectWithValue } = thunkAPI
+        try {
+            dispatch(appActions.setStatus({ status: 'loading' }))
+            const res = await authApi.login(arg)
+            if (res.data.resultCode === 0) {
+                dispatch(appActions.setStatus({ status: 'succeeded' }))
+                return { isLoggedIn: true }
+            } else {
+                handleServerAppError(dispatch, res.data, false)
+                return rejectWithValue(res.data)
+            }
+        } catch (e) {
+            handleServerNetworkError(dispatch, e)
             return rejectWithValue(null)
         }
-    } catch (e) {
-        handleServerNetworkError(dispatch, e)
-        return rejectWithValue(null)
-    }
-})
+    },
+)
 
-const logout = createAppAsyncThunk<{ isLoggedIn: boolean }>('auth/logout', async (arg, thunkAPI) => {
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('auth/logout', async (_, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     try {
         dispatch(appActions.setStatus({ status: 'loading' }))
@@ -63,7 +67,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }>('auth/logout', async
     }
 })
 
-const me = createAppAsyncThunk<{ isLoggedIn: boolean }>('auth/me', async (arg, thunkAPI) => {
+const me = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('auth/me', async (_, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     try {
         dispatch(appActions.setStatus({ status: 'loading' }))
@@ -72,7 +76,8 @@ const me = createAppAsyncThunk<{ isLoggedIn: boolean }>('auth/me', async (arg, t
             dispatch(appActions.setStatus({ status: 'succeeded' }))
             return { isLoggedIn: true }
         } else {
-            handleServerAppError(dispatch, res.data)
+            //handleServerAppError(dispatch, res.data)
+            dispatch(appActions.setStatus({ status: 'succeeded' }))
             return rejectWithValue(null)
         }
     } catch (e) {

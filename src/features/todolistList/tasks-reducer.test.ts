@@ -149,7 +149,7 @@ test('title of specified task should be changed', () => {
 
 test('new property with new array should be added when new todolist is added', () => {
     const todolist = { id: v1(), title: 'title no matter', addedDate: '', order: 0 }
-    const action = todolistsThunks.addTodolist.fulfilled({ todolist }, 'requestId', { title: todolist.title })
+    const action = todolistsThunks.addTodolists.fulfilled({ todolist }, 'requestId', { title: todolist.title })
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)
@@ -162,7 +162,7 @@ test('new property with new array should be added when new todolist is added', (
 
 test('propertry with todolistId should be deleted', () => {
     const args = { todolistId: 'todolistId2' }
-    const action = todolistsThunks.removeTodolist.fulfilled(args, 'requestId', args)
+    const action = todolistsThunks.removeTodolists.fulfilled(args, 'requestId', args)
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)
