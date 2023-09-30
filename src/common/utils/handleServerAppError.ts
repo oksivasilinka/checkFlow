@@ -12,12 +12,7 @@ import { BaseResponse } from 'common/types'
 
 export const handleServerAppError = <T>(dispatch: Dispatch, data: BaseResponse<T>, showError: boolean = true): void => {
     if (showError) {
-        const error = data.messages[0]
-        if (error) {
-            dispatch(appActions.setError({ error }))
-        } else {
-            dispatch(appActions.setError({ error: 'Some error' }))
-        }
+        dispatch(appActions.setError({ error: data.messages.length ? data.messages[0] : 'Some error occurred' }))
     }
 
     dispatch(appActions.setStatus({ status: 'failed' }))

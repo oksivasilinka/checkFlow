@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
+import { createAppAsyncThunk, handleServerAppError, thunkTryCatch } from 'common/utils'
 import { ResultCode } from 'features/todolistList/todolistsApiTypes'
 import { authApi } from 'features/auth/authApi'
 import type { FormType } from 'features/auth'
 import { appActions } from 'app/appReducer'
-import { BaseResponse } from 'common/types'
 
 const slice = createSlice({
     name: 'auth',
@@ -27,65 +26,61 @@ const slice = createSlice({
     },
 })
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, FormType, { rejectValue: BaseResponse | null }>(
-    'auth/login',
-    async (arg, thunkAPI) => {
-        const { dispatch, rejectWithValue } = thunkAPI
-        try {
-            dispatch(appActions.setStatus({ status: 'loading' }))
-            const res = await authApi.login(arg)
-            if (res.data.resultCode === 0) {
-                dispatch(appActions.setStatus({ status: 'succeeded' }))
-                return { isLoggedIn: true }
-            } else {
-                handleServerAppError(dispatch, res.data, false)
-                return rejectWithValue(res.data)
-            }
-        } catch (e) {
-            handleServerNetworkError(dispatch, e)
-            return rejectWithValue(null)
-        }
+const login = createAppAsyncThunk<
+    {
+        isLoggedIn: boolean
     },
-)
-
-const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('auth/logout', async (_, thunkAPI) => {
+    FormType
+>('auth/login', async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
-    try {
-        dispatch(appActions.setStatus({ status: 'loading' }))
+    return thunkTryCatch(thunkAPI, async () => {
+        const res = await authApi.login(arg)
+        if (res.data.resultCode === 0) {
+            return { isLoggedIn: true }
+        } else {
+            const isShowAppError = !res.data.fieldsErrors.length
+            handleServerAppError(dispatch, res.data, isShowAppError)
+            return rejectWithValue(res.data)
+        }
+    })
+})
+
+const logout = createAppAsyncThunk<
+    {
+        isLoggedIn: boolean
+    },
+    undefined
+>('auth/logout', async (_, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI
+    return thunkTryCatch(thunkAPI, async () => {
         const res = await authApi.logout()
         if (res.data.resultCode === ResultCode.success) {
-            dispatch(appActions.setStatus({ status: 'succeeded' }))
             return { isLoggedIn: false }
         } else {
             handleServerAppError(dispatch, res.data)
             dispatch(clearTasksAndTodolists())
             return rejectWithValue(null)
         }
-    } catch (e) {
-        handleServerNetworkError(dispatch, e)
-        return rejectWithValue(null)
-    }
+    })
 })
 
-const me = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('auth/me', async (_, thunkAPI) => {
+const me = createAppAsyncThunk<
+    {
+        isLoggedIn: boolean
+    },
+    undefined
+>('auth/me', async (_, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
-    try {
-        dispatch(appActions.setStatus({ status: 'loading' }))
+    return thunkTryCatch(thunkAPI, async () => {
         const res = await authApi.me()
         if (res.data.resultCode === ResultCode.success) {
-            dispatch(appActions.setStatus({ status: 'succeeded' }))
             return { isLoggedIn: true }
         } else {
-            //handleServerAppError(dispatch, res.data)
-            dispatch(appActions.setStatus({ status: 'succeeded' }))
             return rejectWithValue(null)
         }
-    } catch (e) {
-        handleServerNetworkError(dispatch, e)
-        return rejectWithValue(null)
-    } finally {
+    }).finally(() => {
         dispatch(appActions.setIsInitialized({ isInitialized: true }))
-    }
+    })
 })
 
 export const authReducer = slice.reducer
