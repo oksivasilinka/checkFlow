@@ -14,6 +14,4 @@ export const handleServerAppError = <T>(dispatch: Dispatch, data: BaseResponse<T
     if (showError) {
         dispatch(appActions.setError({ error: data.messages.length ? data.messages[0] : 'Some error occurred' }))
     }
-
-    dispatch(appActions.setStatus({ status: 'failed' }))
 }

@@ -16,6 +16,6 @@ export type Error = {
 }
 
 export type updateTodolistArgs = {
-    todolistId: string
+    id: string
     title: string
 }

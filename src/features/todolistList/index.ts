@@ -1,4 +1,4 @@
-export { TodolistsList } from './TodolistsList'
-export { todolistsActions } from './todolists-reducer'
-export { todolistsThunks } from './todolists-reducer'
-export { tasksThunks } from './tasks-reducer'
+export { TodolistsList } from 'features/todolistList/ui/TodolistsList'
+export { todolistsActions } from 'features/todolistList/model/todolists/todolists-reducer'
+export { todolistsThunks } from 'features/todolistList/model/todolists/todolists-reducer'
+export { tasksThunks } from 'features/todolistList/model/tasks/tasks-reducer'

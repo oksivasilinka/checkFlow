@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react'
 import TextField from '@mui/material/TextField/TextField'
 import IconButton from '@mui/material/IconButton/IconButton'
@@ -25,7 +24,7 @@ type Story = StoryObj<typeof AddItemForm>
 //создаем стори
 export const AddItemFormStory: Story = {
     args: {
-        addItem: action('Button clicked inside form'),
+        //addItem: action('Button clicked inside form'),
     },
 }
 

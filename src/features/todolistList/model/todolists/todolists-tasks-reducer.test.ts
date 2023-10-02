@@ -1,12 +1,16 @@
-import { TodolistDomain, todolistsReducer, todolistsThunks } from 'features/todolistList/todolists-reducer'
-import { tasksReducer, TasksState } from 'features/todolistList/tasks-reducer'
+import {
+    TodolistDomain,
+    todolistsReducer,
+    todolistsThunks,
+} from 'features/todolistList/model/todolists/todolists-reducer'
+import { tasksReducer, TasksState } from 'features/todolistList/model/tasks/tasks-reducer'
 import { v1 } from 'uuid'
 
 test('ids should be equals', () => {
     const startTasksState: TasksState = {}
     const startTodolistsState: Array<TodolistDomain> = []
 
-    const action = todolistsThunks.addTodolists.fulfilled(
+    const action = todolistsThunks.addTodolist.fulfilled(
         {
             todolist: {
                 id: v1(),
