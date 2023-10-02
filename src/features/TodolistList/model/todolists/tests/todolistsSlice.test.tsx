@@ -1,0 +1,94 @@
+import {
+    FilterValues,
+    TodolistDomain,
+    todolistsActions,
+    todolistsSlice,
+    todolistsThunks,
+} from 'features/TodolistList/model/todolists/todolistsSlice'
+import { v1 } from 'uuid'
+
+let todolistId1: string
+let todolistId2: string
+let startState: Array<TodolistDomain>
+
+beforeEach(() => {
+    todolistId1 = v1()
+    todolistId2 = v1()
+
+    startState = [
+        {
+            id: todolistId1,
+            title: 'What to learn',
+            filter: 'all',
+            entityStatus: 'idle',
+        },
+        {
+            id: todolistId2,
+            title: 'What to buy',
+            filter: 'all',
+            entityStatus: 'idle',
+        },
+    ]
+})
+
+test('correct Todolist should be removed', () => {
+    const endState = todolistsSlice(
+        startState,
+        todolistsThunks.removeTodolist.fulfilled({ id: todolistId1 }, 'requestId', {
+            id: todolistId1,
+        }),
+    )
+
+    expect(endState.length).toBe(1)
+    expect(endState[0].id).toBe(todolistId2)
+})
+
+test('correct Todolist should be added', () => {
+    let newTodolistTitle = 'New Todolist'
+
+    const endState = todolistsSlice(
+        startState,
+        todolistsThunks.addTodolist.fulfilled(
+            {
+                todolist: {
+                    id: v1(),
+                    title: newTodolistTitle,
+                    addedDate: '',
+                    order: 0,
+                },
+            },
+            'requestId',
+            { title: newTodolistTitle },
+        ),
+    )
+
+    expect(endState.length).toBe(3)
+    expect(endState[0].title).toBe(newTodolistTitle)
+    expect(endState[2].filter).toBe('all')
+    expect(endState[2].id).toBeDefined()
+})
+
+test('correct Todolist should change its name', () => {
+    let newTodolistTitle = 'New Todolist'
+
+    const action = todolistsThunks.updateTodolistTitle.fulfilled(
+        { id: todolistId2, title: newTodolistTitle },
+        'requestId',
+        { id: todolistId2, title: newTodolistTitle },
+    )
+
+    const endState = todolistsSlice(startState, action)
+
+    expect(endState[0].title).toBe('What to learn')
+    expect(endState[1].title).toBe(newTodolistTitle)
+})
+
+test('correct filter of Todolist should be changed', () => {
+    let newFilter: FilterValues = 'completed'
+
+    const action = todolistsActions.changeTodolistFilter({ todolistId: todolistId2, filter: newFilter })
+    const endState = todolistsSlice(startState, action)
+
+    expect(endState[0].filter).toBe('all')
+    expect(endState[1].filter).toBe(newFilter)
+})

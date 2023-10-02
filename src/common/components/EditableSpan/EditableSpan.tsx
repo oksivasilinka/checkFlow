@@ -1,0 +1,30 @@
+import React, { ChangeEvent, FC, memo, useState } from 'react'
+import TextField from '@mui/material/TextField'
+
+export type Props = {
+    value: string
+    callback: (newValue: string) => void
+}
+
+export const EditableSpan: FC<Props> = memo(({ value, callback }) => {
+    let [editMode, setEditMode] = useState(false)
+    let [title, setTitle] = useState(value)
+
+    const activateEditMode = () => {
+        setEditMode(true)
+        setTitle(value)
+    }
+    const activateViewMode = () => {
+        setEditMode(false)
+        callback(title)
+    }
+    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+
+    return editMode ? (
+        <TextField variant="outlined" value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
+    ) : (
+        <span onDoubleClick={activateEditMode}>{value}</span>
+    )
+})

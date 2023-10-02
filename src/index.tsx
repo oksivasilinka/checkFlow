@@ -2,9 +2,9 @@ import React from 'react'
 import './index.css'
 import { createRoot } from 'react-dom/client'
 import * as serviceWorker from './serviceWorker'
-import App from 'app/App'
+import App from 'app/ui/App/App'
 import { Provider } from 'react-redux'
-import { store } from 'app/store'
+import { store } from 'app/model/store'
 import { BrowserRouter } from 'react-router-dom'
 
 const container = document.getElementById('root') as HTMLElement

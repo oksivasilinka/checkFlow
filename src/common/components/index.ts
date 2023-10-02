@@ -1,4 +1,3 @@
-export { AddItemForm } from 'common/components/addItemForm/AddItemForm'
-export type { AddItemFormPropsType } from 'common/components/addItemForm/AddItemForm'
-export { EditableSpan } from 'common/components/editableSpan/EditableSpan'
-export { ErrorSnackbar } from 'common/components/errorSnackBar/ErrorSnackBar'
+export { AddItemForm } from 'common/components/AddItemForm/AddItemForm'
+export { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
+export { ErrorSnackbar } from 'common/components/ErrorSnackBar/ErrorSnackBar'

@@ -1,4 +1,4 @@
-import { appActions } from 'app/appReducer'
+import { appActions } from 'app/model/appSlice'
 import { Dispatch } from 'redux'
 import { BaseResponse } from 'common/types'
 
