@@ -28,24 +28,9 @@ export type TaskType = {
     deadline: string
     addedDate: string
 }
+export type UpdateTaskModel = Omit<TaskType, 'id' | 'todoListId' | 'order' | 'addedDate'>
 
-export type UpdateTaskModel = {
-    title: string
-    description: string
-    status: TaskStatuses
-    priority: TaskPriorities
-    startDate: string
-    deadline: string
-}
-
-export type UpdateDomainTaskModel = {
-    title?: string
-    description?: string
-    status?: TaskStatuses
-    priority?: TaskPriorities
-    startDate?: string
-    deadline?: string
-}
+export type UpdateDomainTaskModel = Partial<UpdateTaskModel>
 
 export type GetTaskResponse = {
     items: TaskType[]

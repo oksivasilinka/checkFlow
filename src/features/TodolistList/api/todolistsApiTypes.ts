@@ -11,11 +11,4 @@ export const ResultCode = {
     captcha: 10,
 } as const
 
-export type Error = {
-    message: string
-}
-
-export type updateTodolistArgs = {
-    id: string
-    title: string
-}
+export type updateTodolistArgs = Omit<TodolistApi, 'addedDate' | 'order'>

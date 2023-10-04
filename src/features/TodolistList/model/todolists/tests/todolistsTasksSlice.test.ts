@@ -4,20 +4,11 @@ import { v1 } from 'uuid'
 
 test('ids should be equals', () => {
     const startTasksState: TasksState = {}
-    const startTodolistsState: Array<TodolistDomain> = []
+    const startTodolistsState: TodolistDomain[] = []
 
-    const action = todolistsThunks.addTodolist.fulfilled(
-        {
-            todolist: {
-                id: v1(),
-                title: 'new Todolist',
-                addedDate: '',
-                order: 0,
-            },
-        },
-        'requestId',
-        { title: 'new Todolist' },
-    )
+    const todolist = { id: v1(), title: 'new Todolist', addedDate: '', order: 0 }
+    const action = todolistsThunks.addTodolist.fulfilled({ todolist }, 'requestId', { title: 'new Todolist' })
+
     const endTasksState = tasksSlice(startTasksState, action)
     const endTodolistsState = todolistsSlice(startTodolistsState, action)
 

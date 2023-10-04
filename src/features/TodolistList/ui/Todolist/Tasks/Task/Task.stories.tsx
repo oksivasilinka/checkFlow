@@ -2,14 +2,28 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React, { FC, useState } from 'react'
 import { Task } from 'features/TodolistList/ui/Todolist/Tasks/Task/Task'
 import { TaskType } from 'features/TodolistList/api/tasksApiTypes'
+import { ReduxStoreProviderDecorator } from 'app/model/stories/reduxStoreProviderDecorator'
+import { TaskPriorities, TaskStatuses } from 'common/enums'
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLIST/Task',
     component: Task,
     tags: ['autodocs'],
     args: {
-        // Task: {id: '111', title: 'JS', isDone: true},
+        task: {
+            id: '111',
+            title: 'JS',
+            description: '',
+            todoListId: '1',
+            order: 0,
+            status: TaskStatuses.Completed,
+            priority: TaskPriorities.Hi,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+        },
     },
+    decorators: [ReduxStoreProviderDecorator],
 }
 
 export default meta
@@ -19,7 +33,18 @@ export const TaskIsDoneStory: Story = {}
 
 export const TaskIsNotDoneStory: Story = {
     args: {
-        // Task: {id: '111', title: 'JS', isDone: false},
+        task: {
+            id: '111',
+            title: 'JS',
+            description: '',
+            todoListId: '1',
+            order: 0,
+            status: TaskStatuses.New,
+            priority: TaskPriorities.Middle,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+        },
     },
 }
 type Props = {
@@ -29,7 +54,11 @@ type Props = {
 const TaskWithHook: FC<Props> = (args) => {
     const [task, setTask] = useState(args.task)
     const changeTaskStatus = () => {
-        // setTask({...Task, isDone: !Task.isDone})
+        if (task.status === TaskStatuses.Completed) {
+            setTask({ ...task, status: TaskStatuses.New })
+        } else {
+            setTask({ ...task, status: TaskStatuses.Completed })
+        }
     }
     const changeTaskTitle = (taskId: string, title: string) => {
         setTask({ ...task, title: title })

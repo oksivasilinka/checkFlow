@@ -9,12 +9,11 @@ import { v1 } from 'uuid'
 
 let todolistId1: string
 let todolistId2: string
-let startState: Array<TodolistDomain>
+let startState: TodolistDomain[]
 
 beforeEach(() => {
     todolistId1 = v1()
     todolistId2 = v1()
-
     startState = [
         {
             id: todolistId1,
@@ -34,9 +33,7 @@ beforeEach(() => {
 test('correct Todolist should be removed', () => {
     const endState = todolistsSlice(
         startState,
-        todolistsThunks.removeTodolist.fulfilled({ id: todolistId1 }, 'requestId', {
-            id: todolistId1,
-        }),
+        todolistsThunks.removeTodolist.fulfilled({ id: todolistId1 }, 'requestId', { id: todolistId1 }),
     )
 
     expect(endState.length).toBe(1)
@@ -44,43 +41,29 @@ test('correct Todolist should be removed', () => {
 })
 
 test('correct Todolist should be added', () => {
-    let newTodolistTitle = 'New Todolist'
+    const newTitle = 'New Todolist'
+    const todolist = { id: v1(), title: newTitle, addedDate: '', order: 0 }
 
     const endState = todolistsSlice(
         startState,
-        todolistsThunks.addTodolist.fulfilled(
-            {
-                todolist: {
-                    id: v1(),
-                    title: newTodolistTitle,
-                    addedDate: '',
-                    order: 0,
-                },
-            },
-            'requestId',
-            { title: newTodolistTitle },
-        ),
+        todolistsThunks.addTodolist.fulfilled({ todolist }, 'requestId', { title: newTitle }),
     )
 
     expect(endState.length).toBe(3)
-    expect(endState[0].title).toBe(newTodolistTitle)
+    expect(endState[0].title).toBe(newTitle)
     expect(endState[2].filter).toBe('all')
     expect(endState[2].id).toBeDefined()
 })
 
 test('correct Todolist should change its name', () => {
-    let newTodolistTitle = 'New Todolist'
+    const newTitle = 'New Todolist'
+    const args = { id: todolistId2, title: newTitle }
 
-    const action = todolistsThunks.updateTodolistTitle.fulfilled(
-        { id: todolistId2, title: newTodolistTitle },
-        'requestId',
-        { id: todolistId2, title: newTodolistTitle },
-    )
-
+    const action = todolistsThunks.updateTodolistTitle.fulfilled(args, 'requestId', args)
     const endState = todolistsSlice(startState, action)
 
     expect(endState[0].title).toBe('What to learn')
-    expect(endState[1].title).toBe(newTodolistTitle)
+    expect(endState[1].title).toBe(newTitle)
 })
 
 test('correct filter of Todolist should be changed', () => {

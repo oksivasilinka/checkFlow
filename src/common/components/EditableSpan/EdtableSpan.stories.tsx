@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { EditableSpan } from 'common/components/index'
+import { action } from '@storybook/addon-actions'
 
 const meta: Meta<typeof EditableSpan> = {
     title: 'TODOLIST/EditableSpan',
@@ -7,11 +8,11 @@ const meta: Meta<typeof EditableSpan> = {
     tags: ['autodocs'],
     args: {
         value: 'value',
-        // onChange: action('onChange')
+        callback: action('onChange'),
     },
 }
 
 export default meta
 type Story = StoryObj<typeof EditableSpan>
 
-export const EditableSpnStory: Story = {}
+export const EditableSpanStory: Story = {}

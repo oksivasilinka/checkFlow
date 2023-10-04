@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton/IconButton'
 import { AddBox } from '@mui/icons-material'
 import { AddItemForm } from 'common/components/index'
 
-// создаем компоненту
 const meta: Meta<typeof AddItemForm> = {
     title: 'TODOLIST/AddItemForm',
     component: AddItemForm,
@@ -13,7 +12,7 @@ const meta: Meta<typeof AddItemForm> = {
     argTypes: {
         addItem: {
             description: 'Button clicked inside form',
-            // action: 'clicked'
+            action: 'clicked',
         },
     },
 }
@@ -21,12 +20,7 @@ const meta: Meta<typeof AddItemForm> = {
 export default meta
 type Story = StoryObj<typeof AddItemForm>
 
-//создаем стори
-export const AddItemFormStory: Story = {
-    args: {
-        //addItem: action('Button clicked inside form'),
-    },
-}
+export const AddItemFormStory: Story = {}
 
 type Props = {
     addItem: (title: string) => Promise<any>

@@ -135,11 +135,7 @@ test('status of specified Task should be changed', () => {
 })
 
 test('title of specified Task should be changed', () => {
-    const model = {
-        id: '2',
-        model: { title: 'Milkyway' },
-        todolistId: 'todolistId2',
-    }
+    const model = { id: '2', model: { title: 'Milkyway' }, todolistId: 'todolistId2' }
     const action = tasksThunks.updateTask.fulfilled(model, 'requestId', model)
     const endState = tasksSlice(startState, action)
 

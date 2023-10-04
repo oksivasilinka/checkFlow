@@ -11,6 +11,7 @@ import { useAppSelector } from 'app/model/store'
 import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from 'features/auth/model/authSelectors'
 import { useLogin } from 'features/auth/lib/useLogin'
+import s from './Login.module.css'
 
 export const Login = () => {
     const { formik } = useLogin()
@@ -29,7 +30,6 @@ export const Login = () => {
                         <p>
                             To log in get registered
                             <a href={'https://social-network.samuraijs.com/'} target={'_blank'}>
-                                {' '}
                                 here
                             </a>
                         </p>
@@ -42,7 +42,7 @@ export const Login = () => {
                         <FormGroup>
                             <TextField label="Email" margin="normal" {...formik.getFieldProps('email')} />
                             {formik.touched.email && formik.errors.email && (
-                                <div style={{ color: 'red' }}>{formik.errors.email}</div>
+                                <div className={s.errorMessage}>{formik.errors.email}</div>
                             )}
 
                             <TextField
@@ -52,7 +52,7 @@ export const Login = () => {
                                 {...formik.getFieldProps('password')}
                             />
                             {formik.touched.password && formik.errors.password && (
-                                <div style={{ color: 'red' }}>{formik.errors.password}</div>
+                                <div className={s.errorMessage}>{formik.errors.password}</div>
                             )}
                             <FormControlLabel
                                 label={'Remember me'}
