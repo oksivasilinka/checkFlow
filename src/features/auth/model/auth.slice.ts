@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createAppAsyncThunk } from 'common/utils'
-import { ResultCode } from 'features/TodolistList/api/todolistsApiTypes'
-import { authApi } from 'features/auth/api/authApi'
-import { appActions } from 'app/model/appSlice'
+import { ResultCode } from 'features/TodolistList/api/todolists.api.types'
+import { authApi } from 'features/auth/api/auth.api'
+import { appActions } from 'app/model/app.slice'
 import { FormType } from 'features/auth/lib/useLogin'
-import { clearTasksAndTodolists } from 'common/actions/commonActions'
+import { clearTasksAndTodolists } from 'common/actions/common.actions'
 
 const slice = createSlice({
     name: 'auth',

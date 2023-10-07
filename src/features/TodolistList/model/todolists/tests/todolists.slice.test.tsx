@@ -4,7 +4,7 @@ import {
     todolistsActions,
     todolistsSlice,
     todolistsThunks,
-} from 'features/TodolistList/model/todolists/todolistsSlice'
+} from 'features/TodolistList/model/todolists/todolists.slice'
 import { v1 } from 'uuid'
 
 let todolistId1: string
@@ -67,9 +67,9 @@ test('correct Todolist should change its name', () => {
 })
 
 test('correct filter of Todolist should be changed', () => {
-    let newFilter: FilterValues = 'completed'
+    const newFilter: FilterValues = 'completed'
 
-    const action = todolistsActions.changeTodolistFilter({ todolistId: todolistId2, filter: newFilter })
+    const action = todolistsActions.changeTodolistFilter({ id: todolistId2, filter: newFilter })
     const endState = todolistsSlice(startState, action)
 
     expect(endState[0].filter).toBe('all')

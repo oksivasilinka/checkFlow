@@ -1,7 +1,7 @@
 import { TaskPriorities, TaskStatuses } from 'common/enums'
 
 export type AddTaskArgs = {
-    todolistId: string
+    id: string
     title: string
 }
 

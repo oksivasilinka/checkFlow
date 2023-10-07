@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { todolistsApi } from 'features/TodolistList/api/todolistsApi'
-import { tasksApi } from 'features/TodolistList/api/tasksApi'
+import { todolistsApi } from 'features/TodolistList/api/todolists.api'
+import { tasksApi } from 'features/TodolistList/api/tasks.api'
 
 export default {
     title: 'API',
@@ -69,9 +69,9 @@ export const GetTasks = () => {
 export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
     const title = 'it-incubator'
-    const todolistId = 'c6a02fab-8d63-4509-9d50-f2390df61302'
+    const id = 'c6a02fab-8d63-4509-9d50-f2390df61302'
     useEffect(() => {
-        tasksApi.addTasks({ todolistId, title }).then((res) => {
+        tasksApi.addTasks({ id, title }).then((res) => {
             setState(res.data)
         })
     }, [])

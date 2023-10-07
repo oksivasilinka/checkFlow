@@ -1,14 +1,14 @@
 import { Task } from 'features/TodolistList/ui/Todolist/Tasks/Task/Task'
-import React, { FC } from 'react'
-import { TaskType } from 'features/TodolistList/api/tasksApiTypes'
-import { TodolistDomain } from 'features/TodolistList/model/todolists/todolistsSlice'
+import React from 'react'
+import { TaskType } from 'features/TodolistList/api/tasks.api.types'
+import { TodolistDomain } from 'features/TodolistList/model/todolists/todolists.slice'
 
 type Props = {
     tasks: TaskType[]
     todolist: TodolistDomain
 }
 
-export const Tasks: FC<Props> = ({ tasks, todolist }) => {
+export const Tasks = ({ tasks, todolist }: Props) => {
     let tasksForTodolist = tasks
 
     if (todolist.filter === 'active') {

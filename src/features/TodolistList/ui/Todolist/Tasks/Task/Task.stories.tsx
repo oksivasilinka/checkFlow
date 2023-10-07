@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 import { Task } from 'features/TodolistList/ui/Todolist/Tasks/Task/Task'
-import { TaskType } from 'features/TodolistList/api/tasksApiTypes'
-import { ReduxStoreProviderDecorator } from 'app/model/stories/reduxStoreProviderDecorator'
+import { TaskType } from 'features/TodolistList/api/tasks.api.types'
+import { StoreProviderDecorator } from 'app/model/stories/storeProviderDecorator'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
 
 const meta: Meta<typeof Task> = {
@@ -23,7 +23,7 @@ const meta: Meta<typeof Task> = {
             addedDate: '',
         },
     },
-    decorators: [ReduxStoreProviderDecorator],
+    decorators: [StoreProviderDecorator],
 }
 
 export default meta
@@ -51,7 +51,7 @@ type Props = {
     task: TaskType
 }
 
-const TaskWithHook: FC<Props> = (args) => {
+const TaskWithHook = (args: Props) => {
     const [task, setTask] = useState(args.task)
     const changeTaskStatus = () => {
         if (task.status === TaskStatuses.Completed) {

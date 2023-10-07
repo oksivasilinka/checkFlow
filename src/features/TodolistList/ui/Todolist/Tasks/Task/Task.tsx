@@ -1,20 +1,20 @@
 import Checkbox from '@mui/material/Checkbox/Checkbox'
 import IconButton from '@mui/material/IconButton/IconButton'
 import { Delete } from '@mui/icons-material'
-import React, { ChangeEvent, FC } from 'react'
+import React, { ChangeEvent } from 'react'
 import { useAppSelector } from 'app/model/store'
 import { EditableSpan } from 'common/components'
 import { TaskStatuses } from 'common/enums'
-import { TaskType } from 'features/TodolistList/api/tasksApiTypes'
+import { TaskType } from 'features/TodolistList/api/tasks.api.types'
 import { useActions } from 'common/hooks/useActions'
-import { tasksThunks } from 'features/TodolistList/model/tasks/tasksSlice'
+import { tasksThunks } from 'features/TodolistList/model/tasks/tasks.slice'
 import s from 'features/TodolistList/ui/Todolist/Tasks/Task/Task.module.css'
 
 type Props = {
     task: TaskType
 }
 
-export const Task: FC<Props> = React.memo(({ task }) => {
+export const Task = React.memo(({ task }: Props) => {
     const status = useAppSelector((state) => state.app.status)
     const { deleteTask, updateTask } = useActions(tasksThunks)
 

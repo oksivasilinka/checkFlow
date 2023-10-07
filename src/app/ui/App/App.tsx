@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
-import { authThunks } from 'features/auth/model/authSlice'
+import { authThunks } from 'features/auth/model/auth.slice'
 import { ErrorSnackbar } from 'common/components'
 import { useAppSelector } from 'app/model/store'
-import { selectIsInitialized } from 'app/model/appSelectors'
+import { selectIsInitialized } from 'app/model/app.selectors'
 import { useActions } from 'common/hooks/useActions'
 import { Header } from 'app/ui/Header/Header'
 import { Routing } from 'app/ui/Routing/Routing'
@@ -26,11 +26,11 @@ function App() {
     }
 
     return (
-        <div>
+        <>
             <Header />
             <Routing />
             <ErrorSnackbar />
-        </div>
+        </>
     )
 }
 

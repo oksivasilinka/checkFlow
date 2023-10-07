@@ -6,7 +6,7 @@ import {
     GetTaskResponse,
     TaskType,
     UpdateTaskModel,
-} from 'features/TodolistList/api/tasksApiTypes'
+} from 'features/TodolistList/api/tasks.api.types'
 import { instance } from 'common/api/api'
 
 export const tasksApi = {
@@ -18,7 +18,7 @@ export const tasksApi = {
             BaseResponse<{ item: TaskType }>,
             AxiosResponse<BaseResponse<{ item: TaskType }>>,
             { title: string }
-        >(`/todo-lists/${arg.todolistId}/tasks`, { title: arg.title })
+        >(`/todo-lists/${arg.id}/tasks`, { title: arg.title })
     },
     deleteTask(arg: DeleteTaskArgs) {
         return instance.delete<BaseResponse>(`todo-lists/${arg.todolistId}/tasks/${arg.id}`)

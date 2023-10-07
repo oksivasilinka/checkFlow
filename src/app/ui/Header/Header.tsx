@@ -7,10 +7,10 @@ import Button from '@mui/material/Button/Button'
 import LinearProgress from '@mui/material/LinearProgress'
 import React from 'react'
 import { useAppSelector } from 'app/model/store'
-import { selectStatus } from 'app/model/appSelectors'
-import { selectIsLoggedIn } from 'features/auth/model/authSelectors'
+import { selectStatus } from 'app/model/app.selectors'
+import { selectIsLoggedIn } from 'features/auth/model/auth.selectors'
 import { useActions } from 'common/hooks/useActions'
-import { authThunks } from 'features/auth/model/authSlice'
+import { authThunks } from 'features/auth/model/auth.slice'
 
 export const Header = () => {
     const status = useAppSelector(selectStatus)

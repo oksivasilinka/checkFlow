@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useAppSelector } from 'app/model/store'
 import { Navigate } from 'react-router-dom'
-import { selectIsLoggedIn } from 'features/auth/model/authSelectors'
+import { selectIsLoggedIn } from 'features/auth/model/auth.selectors'
 import { useLogin } from 'features/auth/lib/useLogin'
 import s from './Login.module.css'
 

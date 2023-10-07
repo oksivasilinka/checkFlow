@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react'
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
 import TextField from '@mui/material/TextField/TextField'
 import IconButton from '@mui/material/IconButton/IconButton'
 import { AddBox } from '@mui/icons-material'
@@ -27,9 +27,9 @@ type Props = {
     disabled?: boolean
 }
 
-const AddItemFormError: FC<Props> = (args) => {
-    let [title, setTitle] = useState('')
-    let [error, setError] = useState<string | null>('Title is required')
+const AddItemFormError = (args: Props) => {
+    const [title, setTitle] = useState('')
+    const [error, setError] = useState<string | null>('Title is required')
 
     const addItem = () => {
         if (title.trim() !== '') {

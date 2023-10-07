@@ -1,17 +1,18 @@
-import React, { FC } from 'react'
+import React from 'react'
 import Button from '@mui/material/Button'
 import { useActions } from 'common/hooks/useActions'
-import { FilterValues, TodolistDomain, todolistsActions } from 'features/TodolistList/model/todolists/todolistsSlice'
+import { FilterValues, TodolistDomain, todolistsActions } from 'features/TodolistList/model/todolists/todolists.slice'
 
 type Props = {
     todolist: TodolistDomain
 }
 
-export const FilterTasksButton: FC<Props> = ({ todolist }) => {
+export const FilterTasksButton = ({ todolist }: Props) => {
     const { changeTodolistFilter } = useActions(todolistsActions)
+    const { id, filter } = todolist
 
     const changeTodolistFilterHandler = (filter: FilterValues) => {
-        changeTodolistFilter({ todolistId: todolist.id, filter })
+        changeTodolistFilter({ id, filter })
     }
 
     return (
@@ -19,7 +20,7 @@ export const FilterTasksButton: FC<Props> = ({ todolist }) => {
             <Button
                 title={'All'}
                 color={'inherit'}
-                variant={todolist.filter === 'all' ? 'outlined' : 'text'}
+                variant={filter === 'all' ? 'outlined' : 'text'}
                 onClick={() => changeTodolistFilterHandler('all')}
             >
                 All
@@ -27,14 +28,14 @@ export const FilterTasksButton: FC<Props> = ({ todolist }) => {
             <Button
                 title={'Active'}
                 color={'primary'}
-                variant={todolist.filter === 'active' ? 'outlined' : 'text'}
+                variant={filter === 'active' ? 'outlined' : 'text'}
                 onClick={() => changeTodolistFilterHandler('active')}
             >
                 Active
             </Button>
             <Button
                 color={'secondary'}
-                variant={todolist.filter === 'completed' ? 'outlined' : 'text'}
+                variant={filter === 'completed' ? 'outlined' : 'text'}
                 onClick={() => changeTodolistFilterHandler('completed')}
             >
                 Completed

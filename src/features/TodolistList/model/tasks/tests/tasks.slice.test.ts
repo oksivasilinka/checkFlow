@@ -1,6 +1,6 @@
-import { tasksSlice, TasksState, tasksThunks } from 'features/TodolistList/model/tasks/tasksSlice'
+import { tasksSlice, TasksState, tasksThunks } from 'features/TodolistList/model/tasks/tasks.slice'
 import { v1 } from 'uuid'
-import { todolistsThunks } from 'features/TodolistList/model/todolists/todolistsSlice'
+import { todolistsThunks } from 'features/TodolistList/model/todolists/todolists.slice'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
 
 let startState: TasksState
@@ -112,7 +112,7 @@ test('correct Task should be added to correct array', () => {
         addedDate: '',
     }
     const action = tasksThunks.addTask.fulfilled({ task }, 'requestId', {
-        todolistId: task.todoListId,
+        id: task.todoListId,
         title: task.title,
     })
     const endState = tasksSlice(startState, action)
