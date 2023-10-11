@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { AddItemForm } from 'common/components'
 import { tasksThunks } from 'features/TodolistList/model/tasks/tasks.slice'
-import { TaskType } from 'features/TodolistList/api/tasks.api.types'
+import { TaskResponse } from 'features/TodolistList/api/tasks.api.types'
 import { useActions } from 'common/hooks/useActions'
 import { TodolistDomain } from 'features/TodolistList/model/todolists/todolists.slice'
 import { FilterTasksButton } from 'features/TodolistList/ui/Todolist/FilterTasksButton/FilterTasksButton'
@@ -9,7 +9,7 @@ import { Tasks } from 'features/TodolistList/ui/Todolist/Tasks/Tasks'
 import { TodolistTitle } from 'features/TodolistList/ui/Todolist/TodolistTitle/TodolistTitle'
 
 type Props = {
-    tasks: TaskType[]
+    tasks: TaskResponse[]
     todolist: TodolistDomain
 }
 

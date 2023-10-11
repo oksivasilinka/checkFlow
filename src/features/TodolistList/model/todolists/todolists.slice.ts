@@ -5,12 +5,12 @@ import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { createAppAsyncThunk } from 'common/utils'
 import { ResultCode, TodolistApi, updateTodolistArgs } from 'features/TodolistList/api/todolists.api.types'
 
-export type TodolistDomain = TodolistType & {
+export type TodolistDomain = TodolistResponse & {
     filter: FilterValues
     entityStatus: RequestStatus
 }
 export type FilterValues = 'all' | 'active' | 'completed'
-export type TodolistType = {
+export type TodolistResponse = {
     id: string
     title: string
     filter: FilterValues

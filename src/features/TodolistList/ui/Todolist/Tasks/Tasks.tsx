@@ -1,10 +1,10 @@
 import { Task } from 'features/TodolistList/ui/Todolist/Tasks/Task/Task'
 import React from 'react'
-import { TaskType } from 'features/TodolistList/api/tasks.api.types'
+import { TaskResponse } from 'features/TodolistList/api/tasks.api.types'
 import { TodolistDomain } from 'features/TodolistList/model/todolists/todolists.slice'
 
 type Props = {
-    tasks: TaskType[]
+    tasks: TaskResponse[]
     todolist: TodolistDomain
 }
 

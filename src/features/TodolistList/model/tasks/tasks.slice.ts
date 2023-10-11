@@ -6,13 +6,13 @@ import { tasksApi } from 'features/TodolistList/api/tasks.api'
 import {
     AddTaskArgs,
     DeleteTaskArgs,
-    TaskType,
+    TaskResponse,
     UpdateTaskArgs,
     UpdateTaskModel,
 } from 'features/TodolistList/api/tasks.api.types'
 import { ResultCode } from 'features/TodolistList/api/todolists.api.types'
 
-export type TasksState = Record<string, TaskType[]>
+export type TasksState = Record<string, TaskResponse[]>
 
 const slice = createSlice({
     name: 'tasks',
@@ -57,7 +57,7 @@ const slice = createSlice({
     },
 })
 
-const getTasks = createAppAsyncThunk<{ todolistId: string; tasks: TaskType[] }, string>(
+const getTasks = createAppAsyncThunk<{ todolistId: string; tasks: TaskResponse[] }, string>(
     'tasks/getTasks',
     async (todolistId: string) => {
         const res = await tasksApi.getTasks(todolistId)
@@ -72,12 +72,12 @@ const deleteTask = createAppAsyncThunk<{ id: string; todolistId: string }, Delet
         if (res.data.resultCode === ResultCode.success) {
             return { todolistId: arg.todolistId, id: arg.id }
         } else {
-            return rejectWithValue(null)
+            return rejectWithValue(res.data)
         }
     },
 )
 
-const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
+const addTask = createAppAsyncThunk<{ task: TaskResponse }, AddTaskArgs>(
     'tasks/addTask',
     async (arg, { rejectWithValue }) => {
         const res = await tasksApi.addTasks(arg)

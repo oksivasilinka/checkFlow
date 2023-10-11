@@ -16,7 +16,7 @@ export type UpdateTaskArgs = {
     id: string
 }
 
-export type TaskType = {
+export type TaskResponse = {
     id: string
     title: string
     description: string
@@ -28,12 +28,12 @@ export type TaskType = {
     deadline: string
     addedDate: string
 }
-export type UpdateTaskModel = Omit<TaskType, 'id' | 'todoListId' | 'order' | 'addedDate'>
+export type UpdateTaskModel = Omit<TaskResponse, 'id' | 'todoListId' | 'order' | 'addedDate'>
 
 export type UpdateDomainTaskModel = Partial<UpdateTaskModel>
 
 export type GetTaskResponse = {
-    items: TaskType[]
+    items: TaskResponse[]
     totalCount: number
     error: string | null
 }

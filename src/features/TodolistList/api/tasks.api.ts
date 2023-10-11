@@ -4,7 +4,7 @@ import {
     AddTaskArgs,
     DeleteTaskArgs,
     GetTaskResponse,
-    TaskType,
+    TaskResponse,
     UpdateTaskModel,
 } from 'features/TodolistList/api/tasks.api.types'
 import { instance } from 'common/api/api'
@@ -15,8 +15,8 @@ export const tasksApi = {
     },
     addTasks(arg: AddTaskArgs) {
         return instance.post<
-            BaseResponse<{ item: TaskType }>,
-            AxiosResponse<BaseResponse<{ item: TaskType }>>,
+            BaseResponse<{ item: TaskResponse }>,
+            AxiosResponse<BaseResponse<{ item: TaskResponse }>>,
             { title: string }
         >(`/todo-lists/${arg.id}/tasks`, { title: arg.title })
     },
@@ -25,8 +25,8 @@ export const tasksApi = {
     },
     updateTask(todolistId: string, domainModel: UpdateTaskModel, id: string) {
         return instance.put<
-            BaseResponse<{ item: TaskType }>,
-            AxiosResponse<BaseResponse<{ item: TaskType }>>,
+            BaseResponse<{ item: TaskResponse }>,
+            AxiosResponse<BaseResponse<{ item: TaskResponse }>>,
             UpdateTaskModel
         >(`todo-lists/${todolistId}/tasks/${id}`, domainModel)
     },

@@ -3,7 +3,7 @@ import { createAppAsyncThunk } from 'common/utils'
 import { ResultCode } from 'features/TodolistList/api/todolists.api.types'
 import { authApi } from 'features/auth/api/auth.api'
 import { appActions } from 'app/model/app.slice'
-import { FormType } from 'features/auth/lib/useLogin'
+import { FormData } from 'features/auth/lib/useLogin'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 
 const slice = createSlice({
@@ -22,7 +22,7 @@ const slice = createSlice({
     },
 })
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, FormType>('auth/Login', async (arg, { rejectWithValue }) => {
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, FormData>('auth/Login', async (arg, { rejectWithValue }) => {
     const res = await authApi.login(arg)
     if (res.data.resultCode === ResultCode.success) {
         return { isLoggedIn: true }

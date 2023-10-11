@@ -12,7 +12,7 @@ export const useLogin = () => {
             rememberMe: false,
         },
         validate: (values) => {
-            const errors: ErrorType = {}
+            const errors: Error = {}
             const regs = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 
             if (!values.password) {
@@ -28,7 +28,7 @@ export const useLogin = () => {
             }
             return errors
         },
-        onSubmit: (values, formikHelpers: FormikHelpers<FormType>) => {
+        onSubmit: (values, formikHelpers: FormikHelpers<FormData>) => {
             login(values)
                 .unwrap()
                 .catch((err: BaseResponse) => {
@@ -41,9 +41,9 @@ export const useLogin = () => {
     return { formik }
 }
 
-type ErrorType = Partial<Omit<FormType, 'captcha' | 'rememberMe'>>
+type Error = Partial<Omit<FormData, 'captcha' | 'rememberMe'>>
 
-export type FormType = {
+export type FormData = {
     email: string
     password: string
     rememberMe: boolean

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { Task } from 'features/TodolistList/ui/Todolist/Tasks/Task/Task'
-import { TaskType } from 'features/TodolistList/api/tasks.api.types'
+import { TaskResponse } from 'features/TodolistList/api/tasks.api.types'
 import { StoreProviderDecorator } from 'app/model/stories/storeProviderDecorator'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
 
@@ -48,7 +48,7 @@ export const TaskIsNotDoneStory: Story = {
     },
 }
 type Props = {
-    task: TaskType
+    task: TaskResponse
 }
 
 const TaskWithHook = (args: Props) => {
