@@ -17,25 +17,26 @@ type Props = {
 export const Task = React.memo(({ task }: Props) => {
     const status = useAppSelector((state) => state.app.status)
     const { deleteTask, updateTask } = useActions(tasksThunks)
+    const { id, title } = task
 
     const deleteTaskHandler = () => {
-        deleteTask({ id: task.id, todolistId: task.todoListId })
+        deleteTask({ id, todolistId: task.todoListId })
     }
 
     const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
-        updateTask({ todolistId: task.todoListId, model: { status: status }, id: task.id })
+        updateTask({ todolistId: task.todoListId, model: { status }, id })
     }
 
     const changeTitleHandler = (title: string) => {
-        updateTask({ todolistId: task.todoListId, model: { title }, id: task.id })
+        updateTask({ todolistId: task.todoListId, model: { title }, id })
     }
 
     return (
         <div key={task.id} className={task.status ? s.isDone : ''}>
             <Checkbox checked={task.status === TaskStatuses.Completed} color="primary" onChange={changeStatusHandler} />
 
-            <EditableSpan value={task.title} callback={changeTitleHandler} />
+            <EditableSpan value={title} callback={changeTitleHandler} />
             <IconButton onClick={deleteTaskHandler} disabled={status === 'loading'}>
                 <Delete />
             </IconButton>

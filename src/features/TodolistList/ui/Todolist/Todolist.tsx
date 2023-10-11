@@ -15,7 +15,7 @@ type Props = {
 
 export const Todolist = React.memo(({ tasks, todolist }: Props) => {
     const { getTasks, addTask } = useActions(tasksThunks)
-    const { id } = todolist
+    const { id, entityStatus } = todolist
 
     useEffect(() => {
         getTasks(id)
@@ -28,7 +28,7 @@ export const Todolist = React.memo(({ tasks, todolist }: Props) => {
     return (
         <>
             <TodolistTitle todolist={todolist} />
-            <AddItemForm addItem={addTaskCallback} disabled={todolist.entityStatus === 'loading'} />
+            <AddItemForm addItem={addTaskCallback} disabled={entityStatus === 'loading'} />
             <Tasks tasks={tasks} todolist={todolist} />
             <FilterTasksButton todolist={todolist} />
         </>
