@@ -10,6 +10,7 @@ import { selectTodolists } from 'features/TodolistList/model/todolists/todolists
 import { selectTasks } from 'features/TodolistList/model/tasks/tasks.selectors'
 import { selectIsLoggedIn } from 'features/auth/model/auth.selectors'
 import { useActions } from 'common/hooks/useActions'
+import s from './TodolistsList.module.css'
 
 export const TodolistsList = () => {
     const todolists = useAppSelector(selectTodolists)
@@ -32,7 +33,7 @@ export const TodolistsList = () => {
 
     return (
         <>
-            <Grid container style={{ padding: '20px' }}>
+            <Grid container className={s.addItemFormWrapper}>
                 <AddItemForm addItem={addTodolistCallback} />
             </Grid>
             <Grid container spacing={3}>
@@ -41,7 +42,7 @@ export const TodolistsList = () => {
 
                     return (
                         <Grid key={tl.id} item>
-                            <Paper style={{ padding: '10px' }}>
+                            <Paper className={s.todolistWrapper}>
                                 <Todolist tasks={allTasks} todolist={tl} />
                             </Paper>
                         </Grid>
