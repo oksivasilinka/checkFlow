@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { BaseResponse } from 'common/types'
-import { instance } from 'common/api/api'
+import { instance } from 'common/api'
 import { TodolistApi } from 'features/TodolistList/api/todolists.api.types'
 
 export const todolistsApi = {

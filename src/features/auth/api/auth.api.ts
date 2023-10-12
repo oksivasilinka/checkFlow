@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { BaseResponse } from 'common/types'
-import { instance } from 'common/api/api'
+import { instance } from 'common/api'
 import { AuthMe } from 'features/auth/index'
 import { FormData } from 'features/auth/lib/useLogin'
 

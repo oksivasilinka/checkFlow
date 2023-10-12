@@ -4,7 +4,7 @@ import { ResultCode } from 'features/TodolistList/api/todolists.api.types'
 import { authApi } from 'features/auth/api/auth.api'
 import { appActions } from 'app/model/app.slice'
 import { FormData } from 'features/auth/lib/useLogin'
-import { clearTasksAndTodolists } from 'common/actions/common.actions'
+import { clearTasksAndTodolists } from 'common/actions'
 
 const slice = createSlice({
     name: 'auth',

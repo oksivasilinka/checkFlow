@@ -1,7 +1,7 @@
 import { todolistsApi } from 'features/TodolistList/api/todolists.api'
 import { RequestStatus } from 'app/model/app.slice'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { clearTasksAndTodolists } from 'common/actions/common.actions'
+import { clearTasksAndTodolists } from 'common/actions'
 import { createAppAsyncThunk } from 'common/utils'
 import { ResultCode, TodolistApi, updateTodolistArgs } from 'features/TodolistList/api/todolists.api.types'
 

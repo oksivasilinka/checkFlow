@@ -1,6 +1,6 @@
 import { todolistsThunks } from 'features/TodolistList/model/todolists/todolists.slice'
 import { createSlice } from '@reduxjs/toolkit'
-import { clearTasksAndTodolists } from 'common/actions/common.actions'
+import { clearTasksAndTodolists } from 'common/actions'
 import { createAppAsyncThunk } from 'common/utils'
 import { tasksApi } from 'features/TodolistList/api/tasks.api'
 import {
