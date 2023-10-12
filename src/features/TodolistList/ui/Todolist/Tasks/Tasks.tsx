@@ -2,6 +2,7 @@ import { Task } from 'features/TodolistList/ui/Todolist/Tasks/Task'
 import React from 'react'
 import { TaskResponse } from 'features/TodolistList/api/tasks.api.types'
 import { TodolistDomain } from 'features/TodolistList/model/todolists/todolists.slice'
+import s from './Tasks.module.css'
 
 type Props = {
     tasks: TaskResponse[]
@@ -23,6 +24,9 @@ export const Tasks = ({ tasks, todolist }: Props) => {
             {tasksForTodolist?.map((t) => {
                 return <Task key={t.id} task={t} />
             })}
+            <div className={s.textWrapper}>
+                {!tasks.length && <span className={s.text}>Create your first task!</span>}
+            </div>
         </>
     )
 }
