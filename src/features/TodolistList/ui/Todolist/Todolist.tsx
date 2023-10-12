@@ -7,6 +7,7 @@ import { TodolistDomain } from 'features/TodolistList/model/todolists/todolists.
 import { FilterTasksButton } from 'features/TodolistList/ui/Todolist/FilterTasksButton'
 import { Tasks } from 'features/TodolistList/ui/Todolist/Tasks'
 import { TodolistTitle } from 'features/TodolistList/ui/Todolist/TodolistTitle'
+import s from './Todolist.module.css'
 
 type Props = {
     tasks: TaskResponse[]
@@ -26,11 +27,11 @@ export const Todolist = React.memo(({ tasks, todolist }: Props) => {
     }
 
     return (
-        <>
+        <div className={s.todolistWrapper}>
             <TodolistTitle todolist={todolist} />
             <AddItemForm addItem={addTaskCallback} disabled={entityStatus === 'loading'} />
             <Tasks tasks={tasks} todolist={todolist} />
             <FilterTasksButton todolist={todolist} />
-        </>
+        </div>
     )
 })
