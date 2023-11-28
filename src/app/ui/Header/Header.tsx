@@ -11,6 +11,8 @@ import { selectStatus } from 'app/model/app.selectors'
 import { selectIsLoggedIn } from 'features/auth/model/auth.selectors'
 import { useActions } from 'common/hooks/useActions'
 import { authThunks } from 'features/auth/model/auth.slice'
+import s from './header.module.css'
+import { Link } from '@mui/material'
 
 export const Header = () => {
     const status = useAppSelector(selectStatus)
@@ -23,15 +25,22 @@ export const Header = () => {
 
     return (
         <AppBar position="static">
-            <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="menu">
-                    <Menu />
-                </IconButton>
-                <Typography variant="h6">News</Typography>
+            <Toolbar className={s.toolbar}>
+                <Typography variant="h6">
+                    <Link href={'/'} color={'inherit'} style={{ textDecoration: 'none' }}>
+                        Check Flow
+                    </Link>
+                </Typography>
+
                 {isLoggedIn && (
                     <Button color="inherit" onClick={logoutHandler}>
                         LogOut
                     </Button>
+                )}
+                {!isLoggedIn && (
+                    <Link href={'/login'} color={'inherit'} style={{ textDecoration: 'none' }}>
+                        <Typography variant={'button'}>LogIn</Typography>
+                    </Link>
                 )}
             </Toolbar>
             {status === 'loading' && <LinearProgress />}

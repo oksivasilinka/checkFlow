@@ -8,6 +8,8 @@ import { useActions } from 'common/hooks/useActions'
 import { Header } from 'app/ui/Header/Header'
 import { Routing } from 'app/ui/Routing/Routing'
 import s from 'app/ui/App/App.module.css'
+import { ThemeProvider } from '@mui/material'
+import { theme } from 'styles/theme'
 
 function App() {
     const isInitialized = useAppSelector(selectIsInitialized)
@@ -26,11 +28,11 @@ function App() {
     }
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <Header />
             <Routing />
             <ErrorSnackbar />
-        </>
+        </ThemeProvider>
     )
 }
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import Grid from '@mui/material/Grid'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -12,6 +11,7 @@ import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from 'features/auth/model/auth.selectors'
 import { useLogin } from 'features/auth/lib/useLogin'
 import s from './Login.module.css'
+import Typography from '@mui/material/Typography/Typography'
 
 export const Login = () => {
     const { formik } = useLogin()
@@ -23,53 +23,57 @@ export const Login = () => {
     }
 
     return (
-        <Grid container justifyContent={'center'}>
-            <Grid item justifyContent={'center'}>
-                <FormControl>
-                    <FormLabel>
-                        <p>
-                            To log in get registered
-                            <a href={'https://social-network.samuraijs.com/'} target={'_blank'}>
-                                here
-                            </a>
-                        </p>
-                        <p>or use common test account credentials:</p>
-                        <p>Email: free@samuraijs.com</p>
-                        <p>Password: free</p>
-                    </FormLabel>
+        <div className={s.wrapper}>
+            <FormControl className={s.formWrapper}>
+                <FormLabel className={s.label}>
+                    <Typography variant={'h6'}>
+                        Enter your email and password. If you don't have an account yet, register{' '}
+                        <a
+                            href={'https://social-network.samuraijs.com/'}
+                            style={{ color: '#e91e63' }}
+                            target={'_blank'}
+                        >
+                            here
+                        </a>
+                    </Typography>
+                </FormLabel>
 
-                    <form onSubmit={formik.handleSubmit}>
-                        <FormGroup>
-                            <TextField label="Email" margin="normal" {...formik.getFieldProps('email')} />
+                <form onSubmit={formik.handleSubmit}>
+                    <FormGroup className={s.form}>
+                        <div className={s.input}>
+                            <TextField label="Email" fullWidth size={'small'} {...formik.getFieldProps('email')} />
                             {formik.touched.email && formik.errors.email && (
-                                <div className={s.errorMessage}>{formik.errors.email}</div>
+                                <span className={s.errorMessage}>{formik.errors.email}</span>
                             )}
+                        </div>
 
+                        <div className={s.input}>
                             <TextField
+                                fullWidth
+                                size={'small'}
                                 type="password"
                                 label="Password"
-                                margin="normal"
                                 {...formik.getFieldProps('password')}
                             />
                             {formik.touched.password && formik.errors.password && (
-                                <div className={s.errorMessage}>{formik.errors.password}</div>
+                                <span className={s.errorMessage}>{formik.errors.password}</span>
                             )}
-                            <FormControlLabel
-                                label={'Remember me'}
-                                control={
-                                    <Checkbox
-                                        checked={formik.values.rememberMe}
-                                        {...formik.getFieldProps('rememberMe')}
-                                    />
-                                }
-                            />
-                            <Button type={'submit'} variant={'contained'} color={'primary'}>
-                                Login
-                            </Button>
-                        </FormGroup>
-                    </form>
-                </FormControl>
-            </Grid>
-        </Grid>
+                        </div>
+
+                        <FormControlLabel
+                            className={s.checkbox}
+                            label={'Remember me'}
+                            control={
+                                <Checkbox checked={formik.values.rememberMe} {...formik.getFieldProps('rememberMe')} />
+                            }
+                        />
+
+                        <Button type={'submit'} variant={'contained'} color={'primary'} className={s.button}>
+                            Login
+                        </Button>
+                    </FormGroup>
+                </form>
+            </FormControl>
+        </div>
     )
 }

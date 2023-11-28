@@ -23,7 +23,7 @@ export const TodolistTitle = ({ todolist }: Props) => {
     }
 
     return (
-        <Typography variant={'h6'} className={s.titleBlock}>
+        <Typography variant={'h6'} className={s.titleBlock} color={'primary'}>
             <div className={s.title}>
                 <EditableSpan value={title} callback={changeTodolistTitleHandler} />
             </div>

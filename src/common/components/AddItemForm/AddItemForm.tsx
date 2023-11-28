@@ -44,8 +44,8 @@ export const AddItemForm = React.memo(({ addItem, disabled }: Props) => {
     }
 
     return (
-        <Grid container spacing={2} columns={12}>
-            <Grid item xs={10}>
+        <Grid container columns={12}>
+            <Grid item xs={11}>
                 <TextField
                     variant="outlined"
                     error={!!error}
@@ -58,8 +58,13 @@ export const AddItemForm = React.memo(({ addItem, disabled }: Props) => {
                     fullWidth={true}
                 />
             </Grid>
-            <Grid item xs={2}>
-                <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
+            <Grid item xs={1} style={{ position: 'relative' }}>
+                <IconButton
+                    style={{ top: '8px', right: '-2px' }}
+                    color="primary"
+                    onClick={addItemHandler}
+                    disabled={disabled}
+                >
                     <AddBox />
                 </IconButton>
             </Grid>

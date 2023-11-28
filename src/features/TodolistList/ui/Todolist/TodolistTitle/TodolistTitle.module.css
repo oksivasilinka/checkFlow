@@ -8,3 +8,9 @@
     align-items: flex-start;
     padding-bottom: 15px;
 }
+
+.iconDelete {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+}
