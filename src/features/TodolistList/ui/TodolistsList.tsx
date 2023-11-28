@@ -34,7 +34,7 @@ export const TodolistsList = () => {
     return (
         <>
             <Grid container className={s.addItemFormWrapper}>
-                <AddItemForm addItem={addTodolistCallback} />
+                <AddItemForm addItem={addTodolistCallback} label={'Enter the name of the list'} />
             </Grid>
             <Grid container spacing={3}>
                 {todolists?.map((tl) => {
@@ -42,7 +42,7 @@ export const TodolistsList = () => {
 
                     return (
                         <Grid key={tl.id} item>
-                            <Paper className={s.todolistWrapper}>
+                            <Paper elevation={4} className={s.todolistWrapper}>
                                 <Todolist tasks={allTasks} todolist={tl} />
                             </Paper>
                         </Grid>

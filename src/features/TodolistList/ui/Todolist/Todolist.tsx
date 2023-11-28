@@ -29,7 +29,11 @@ export const Todolist = React.memo(({ tasks, todolist }: Props) => {
     return (
         <div className={s.todolistWrapper}>
             <TodolistTitle todolist={todolist} />
-            <AddItemForm addItem={addTaskCallback} disabled={entityStatus === 'loading'} />
+            <AddItemForm
+                addItem={addTaskCallback}
+                disabled={entityStatus === 'loading'}
+                label={'Enter the name of the task'}
+            />
             <Tasks tasks={tasks} todolist={todolist} />
             <FilterTasksButton todolist={todolist} />
         </div>

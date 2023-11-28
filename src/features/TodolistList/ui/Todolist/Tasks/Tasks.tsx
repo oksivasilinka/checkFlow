@@ -20,13 +20,13 @@ export const Tasks = ({ tasks, todolist }: Props) => {
     }
 
     return (
-        <>
+        <div className={s.tasksWrapper}>
             {tasksForTodolist?.map((t) => {
                 return <Task key={t.id} task={t} />
             })}
             <div className={s.textWrapper}>
                 {!tasks.length && <span className={s.text}>Create your first task!</span>}
             </div>
-        </>
+        </div>
     )
 }

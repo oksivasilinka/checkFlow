@@ -3,14 +3,15 @@ import TextField from '@mui/material/TextField/TextField'
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
 import { AddBox } from '@mui/icons-material'
 import { BaseResponse } from 'common/types'
-import Grid from '@mui/material/Grid/Grid'
+import s from './AddItemForm.module.css'
 
 type Props = {
     addItem: (title: string) => Promise<any>
     disabled?: boolean
+    label: string
 }
 
-export const AddItemForm = React.memo(({ addItem, disabled }: Props) => {
+export const AddItemForm = React.memo(({ addItem, disabled, label }: Props) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -44,30 +45,22 @@ export const AddItemForm = React.memo(({ addItem, disabled }: Props) => {
     }
 
     return (
-        <Grid container columns={12}>
-            <Grid item xs={11}>
-                <TextField
-                    variant="outlined"
-                    error={!!error}
-                    value={title}
-                    onChange={changeItemHandler}
-                    onKeyDown={addItemOnKeyDown}
-                    label="Title"
-                    helperText={error}
-                    disabled={disabled}
-                    fullWidth={true}
-                />
-            </Grid>
-            <Grid item xs={1} style={{ position: 'relative' }}>
-                <IconButton
-                    style={{ top: '8px', right: '-2px' }}
-                    color="primary"
-                    onClick={addItemHandler}
-                    disabled={disabled}
-                >
-                    <AddBox />
-                </IconButton>
-            </Grid>
-        </Grid>
+        <div className={s.textField}>
+            <TextField
+                size={'small'}
+                variant="outlined"
+                error={!!error}
+                value={title}
+                onChange={changeItemHandler}
+                onKeyDown={addItemOnKeyDown}
+                label={label}
+                helperText={error}
+                disabled={disabled}
+                fullWidth={true}
+            />
+            <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
+                <AddBox />
+            </IconButton>
+        </div>
     )
 })
