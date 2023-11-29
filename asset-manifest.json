@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/checkFlow/static/css/main.30f26756.css",
+    "main.js": "/checkFlow/static/js/main.22c8ce19.js",
+    "index.html": "/checkFlow/index.html",
+    "main.30f26756.css.map": "/checkFlow/static/css/main.30f26756.css.map",
+    "main.22c8ce19.js.map": "/checkFlow/static/js/main.22c8ce19.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.30f26756.css",
+    "static/js/main.22c8ce19.js"
+  ]
+}
