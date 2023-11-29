@@ -25,6 +25,11 @@ export const EditableSpan = memo(({ value, callback }: Props) => {
     return editMode ? (
         <TextField variant="outlined" value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
     ) : (
-        <span onDoubleClick={activateEditMode}>{value}</span>
+        <span
+            style={{ display: 'grid', wordBreak: 'break-all', alignContent: 'center' }}
+            onDoubleClick={activateEditMode}
+        >
+            {value}
+        </span>
     )
 })

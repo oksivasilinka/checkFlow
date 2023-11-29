@@ -33,7 +33,7 @@ export const Task = React.memo(({ task }: Props) => {
     }
 
     return (
-        <div key={task.id} className={task.status ? s.isDone : ''}>
+        <div key={task.id} className={task.status ? `${s.wrapper} ${s.isDone} ` : `${s.wrapper}`}>
             <Checkbox checked={task.status === TaskStatuses.Completed} color="primary" onChange={changeStatusHandler} />
 
             <EditableSpan value={title} callback={changeTitleHandler} />
