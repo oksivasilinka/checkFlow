@@ -1,1 +1,1 @@
-export { createAppAsyncThunk } from './createAsyncThunk'
+export * from './createAsyncThunk'

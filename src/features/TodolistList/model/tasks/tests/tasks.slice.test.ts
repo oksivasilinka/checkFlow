@@ -1,7 +1,6 @@
-import { tasksSlice, TasksState, tasksThunks } from 'features/TodolistList/model/tasks/tasks.slice'
 import { v1 } from 'uuid'
-import { todolistsThunks } from 'features/TodolistList/model/todolists/todolists.slice'
-import { TaskPriorities, TaskStatuses } from 'common/enums'
+import { todolistsThunks, tasksSlice, TasksState, tasksThunks } from 'features'
+import { TaskPriorities, TaskStatuses } from 'common'
 
 let startState: TasksState
 

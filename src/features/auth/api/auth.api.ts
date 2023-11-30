@@ -1,8 +1,6 @@
 import { AxiosResponse } from 'axios'
-import { BaseResponse } from 'common/types'
-import { instance } from 'common/api'
-import { AuthMe } from 'features/auth/index'
-import { FormData } from 'features/auth/lib/useLogin'
+import { BaseResponse, instance } from 'common'
+import { AuthMe, FormData } from 'features'
 
 export const authApi = {
     me() {

@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React, { useState } from 'react'
-import { Task } from 'features/TodolistList/ui/Todolist/Tasks/Task/Task'
-import { TaskResponse } from 'features/TodolistList/api/tasks.api.types'
-import { StoreProviderDecorator } from 'app/model/stories/storeProviderDecorator'
-import { TaskPriorities, TaskStatuses } from 'common/enums'
+import { useState } from 'react'
+import { Task, TaskResponse } from 'features'
+import { StoreProviderDecorator } from 'app'
+import { TaskPriorities, TaskStatuses } from 'common'
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLIST/Task',

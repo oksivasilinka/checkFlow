@@ -1,9 +1,7 @@
-import { todolistsApi } from 'features/TodolistList/api/todolists.api'
-import { RequestStatus } from 'app/model/app.slice'
+import { RequestStatus } from 'app'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { clearTasksAndTodolists } from 'common/actions'
-import { createAppAsyncThunk } from 'common/utils'
-import { ResultCode, TodolistApi, updateTodolistArgs } from 'features/TodolistList/api/todolists.api.types'
+import { clearTasksAndTodolists, createAppAsyncThunk } from 'common'
+import { ResultCode, TodolistApi, updateTodolistArgs, todolistsApi } from 'features'
 
 export type TodolistDomain = TodolistResponse & {
     filter: FilterValues

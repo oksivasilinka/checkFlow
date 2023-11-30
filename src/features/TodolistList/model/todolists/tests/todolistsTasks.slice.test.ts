@@ -1,5 +1,5 @@
-import { TodolistDomain, todolistsSlice, todolistsThunks } from 'features/TodolistList/model/todolists/todolists.slice'
-import { tasksSlice, TasksState } from 'features/TodolistList/model/tasks/tasks.slice'
+import { TodolistDomain, todolistsSlice, todolistsThunks, tasksSlice, TasksState } from 'features'
+
 import { v1 } from 'uuid'
 
 test('ids should be equals', () => {

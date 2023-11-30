@@ -1,9 +1,7 @@
-import { EditableSpan } from 'common/components'
+import { EditableSpan, useActions } from 'common'
 import IconButton from '@mui/material/IconButton/IconButton'
 import { Delete } from '@mui/icons-material'
-import React from 'react'
-import { useActions } from 'common/hooks/useActions'
-import { TodolistDomain, todolistsThunks } from 'features/TodolistList/model/todolists/todolists.slice'
+import { TodolistDomain, todolistsThunks } from 'features'
 import s from './TodolistTitle.module.css'
 import Typography from '@mui/material/Typography/Typography'
 

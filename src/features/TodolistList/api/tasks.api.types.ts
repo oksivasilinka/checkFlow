@@ -1,4 +1,4 @@
-import { TaskPriorities, TaskStatuses } from 'common/enums'
+import { TaskPriorities, TaskStatuses } from 'common'
 
 export type AddTaskArgs = {
     id: string

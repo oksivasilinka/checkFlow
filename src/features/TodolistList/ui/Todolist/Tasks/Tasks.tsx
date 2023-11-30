@@ -1,7 +1,4 @@
-import { Task } from 'features/TodolistList/ui/Todolist/Tasks/Task'
-import React from 'react'
-import { TaskResponse } from 'features/TodolistList/api/tasks.api.types'
-import { TodolistDomain } from 'features/TodolistList/model/todolists/todolists.slice'
+import { Task, TaskResponse, TodolistDomain } from 'features'
 import s from './Tasks.module.css'
 
 type Props = {

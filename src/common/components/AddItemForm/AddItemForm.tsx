@@ -1,8 +1,8 @@
 import IconButton from '@mui/material/IconButton/IconButton'
 import TextField from '@mui/material/TextField/TextField'
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, memo, useState } from 'react'
 import { AddBox } from '@mui/icons-material'
-import { BaseResponse } from 'common/types'
+import { BaseResponse } from 'common'
 import s from './AddItemForm.module.css'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
     label: string
 }
 
-export const AddItemForm = React.memo(({ addItem, disabled, label }: Props) => {
+export const AddItemForm = memo(({ addItem, disabled, label }: Props) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 

@@ -1,7 +1,6 @@
 import { FormikHelpers, useFormik } from 'formik'
-import { BaseResponse } from 'common/types'
-import { useActions } from 'common/hooks/useActions'
-import { authThunks } from 'features/auth/model/auth.slice'
+import { BaseResponse, useActions } from 'common'
+import { authThunks } from 'features'
 
 export const useLogin = () => {
     const { login } = useActions(authThunks)

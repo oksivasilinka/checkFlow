@@ -1,16 +1,15 @@
-import { todolistsThunks } from 'features/TodolistList/model/todolists/todolists.slice'
 import { createSlice } from '@reduxjs/toolkit'
-import { clearTasksAndTodolists } from 'common/actions'
-import { createAppAsyncThunk } from 'common/utils'
-import { tasksApi } from 'features/TodolistList/api/tasks.api'
+import { clearTasksAndTodolists, createAppAsyncThunk } from 'common'
 import {
     AddTaskArgs,
     DeleteTaskArgs,
+    ResultCode,
     TaskResponse,
+    tasksApi,
+    todolistsThunks,
     UpdateTaskArgs,
     UpdateTaskModel,
-} from 'features/TodolistList/api/tasks.api.types'
-import { ResultCode } from 'features/TodolistList/api/todolists.api.types'
+} from 'features'
 
 export type TasksState = Record<string, TaskResponse[]>
 

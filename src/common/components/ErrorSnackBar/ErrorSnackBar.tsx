@@ -1,12 +1,11 @@
-import React from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
-import { useAppDispatch, useAppSelector } from 'app/model/store'
-import { appActions } from 'app/model/app.slice'
-import { selectError } from 'features/auth/model/auth.selectors'
+import { appActions, useAppDispatch, useAppSelector } from 'app'
+import { selectError } from 'features'
 import Typography from '@mui/material/Typography/Typography'
+import { forwardRef, SyntheticEvent } from 'react'
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
@@ -14,7 +13,7 @@ export const ErrorSnackbar = () => {
     const error = useAppSelector(selectError)
     const dispatch = useAppDispatch()
 
-    const handleClose = (_?: React.SyntheticEvent | Event, reason?: string) => {
+    const handleClose = (_?: SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return
         }

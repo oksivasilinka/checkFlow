@@ -1,4 +1,4 @@
-import React, { ChangeEvent, memo, useState } from 'react'
+import { ChangeEvent, memo, useState } from 'react'
 import TextField from '@mui/material/TextField'
 
 export type Props = {

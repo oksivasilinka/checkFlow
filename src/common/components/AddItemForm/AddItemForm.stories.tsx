@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import TextField from '@mui/material/TextField/TextField'
 import IconButton from '@mui/material/IconButton/IconButton'
 import { AddBox } from '@mui/icons-material'
-import { AddItemForm } from 'common/components/AddItemForm/AddItemForm'
+import { AddItemForm } from 'common'
 
 const meta: Meta<typeof AddItemForm> = {
     title: 'TODOLIST/AddItemForm',

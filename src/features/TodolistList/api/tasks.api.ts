@@ -1,13 +1,6 @@
 import { AxiosResponse } from 'axios'
-import { BaseResponse } from 'common/types'
-import {
-    AddTaskArgs,
-    DeleteTaskArgs,
-    GetTaskResponse,
-    TaskResponse,
-    UpdateTaskModel,
-} from 'features/TodolistList/api/tasks.api.types'
-import { instance } from 'common/api'
+import { BaseResponse, instance } from 'common'
+import { AddTaskArgs, DeleteTaskArgs, GetTaskResponse, TaskResponse, UpdateTaskModel } from 'features'
 
 export const tasksApi = {
     getTasks(todolistId: string) {

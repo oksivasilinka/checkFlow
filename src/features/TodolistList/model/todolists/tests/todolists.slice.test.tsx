@@ -1,10 +1,4 @@
-import {
-    FilterValues,
-    TodolistDomain,
-    todolistsActions,
-    todolistsSlice,
-    todolistsThunks,
-} from 'features/TodolistList/model/todolists/todolists.slice'
+import { FilterValues, TodolistDomain, todolistsActions, todolistsSlice, todolistsThunks } from 'features'
 import { v1 } from 'uuid'
 
 let todolistId1: string

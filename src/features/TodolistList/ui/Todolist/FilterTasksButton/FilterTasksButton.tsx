@@ -1,7 +1,6 @@
-import React from 'react'
 import Button from '@mui/material/Button'
-import { useActions } from 'common/hooks/useActions'
-import { FilterValues, TodolistDomain, todolistsActions } from 'features/TodolistList/model/todolists/todolists.slice'
+import { useActions } from 'common'
+import { FilterValues, TodolistDomain, todolistsActions } from 'features'
 import s from './FilterTasksButton.module.css'
 
 type Props = {

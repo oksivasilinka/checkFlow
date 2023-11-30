@@ -3,5 +3,5 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 5px;
-    align-items: start;
+    align-items: flex-start;
 }

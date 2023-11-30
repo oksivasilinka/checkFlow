@@ -1,3 +1,3 @@
-export { AddItemForm } from 'common/components/AddItemForm/AddItemForm'
-export { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
-export { ErrorSnackbar } from 'common/components/ErrorSnackBar/ErrorSnackBar'
+export * from './AddItemForm'
+export * from './EditableSpan'
+export * from './ErrorSnackBar'

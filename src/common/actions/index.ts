@@ -1,1 +1,1 @@
-export { clearTasksAndTodolists } from './common.actions'
+export * from './common.actions'
