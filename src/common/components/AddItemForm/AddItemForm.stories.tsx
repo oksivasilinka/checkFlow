@@ -3,7 +3,8 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import TextField from '@mui/material/TextField/TextField'
 import IconButton from '@mui/material/IconButton/IconButton'
 import { AddBox } from '@mui/icons-material'
-import { AddItemForm } from 'common'
+import { AddItemForm, BaseResponse } from 'common'
+import s from 'common/components/AddItemForm/AddItemForm.module.css'
 
 const meta: Meta<typeof AddItemForm> = {
     title: 'TODOLIST/AddItemForm',
@@ -25,44 +26,55 @@ export const AddItemFormStory: Story = {}
 type Props = {
     addItem: (title: string) => Promise<any>
     disabled?: boolean
+    label: string
 }
 
 const AddItemFormError = (args: Props) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>('Title is required')
 
-    const addItem = () => {
+    const addItemHandler = () => {
         if (title.trim() !== '') {
             args.addItem(title)
-            setTitle('')
+                .then(() => {
+                    setTitle('')
+                })
+                .catch((err: BaseResponse) => {
+                    if (err?.resultCode) {
+                        setError(err.messages[0])
+                    }
+                })
         } else {
             setError('Title is required')
         }
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const changeItemHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    const addItemOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (error) setError(null)
         if (e.key === 'Enter') {
-            addItem()
+            addItemHandler()
         }
     }
 
     return (
-        <div>
+        <div className={s.textField}>
             <TextField
+                size={'small'}
                 variant="outlined"
                 error={!!error}
                 value={title}
-                onChange={onChangeHandler}
-                onKeyDown={onKeyPressHandler}
-                label="Title"
+                onChange={changeItemHandler}
+                onKeyDown={addItemOnKeyDown}
+                label={args.label}
                 helperText={error}
+                disabled={args.disabled}
+                fullWidth={true}
             />
-            <IconButton color="primary" onClick={addItem}>
+            <IconButton color="primary" onClick={addItemHandler} disabled={args.disabled}>
                 <AddBox />
             </IconButton>
         </div>
@@ -70,5 +82,5 @@ const AddItemFormError = (args: Props) => {
 }
 
 export const AddItemFormErrorStory: Story = {
-    render: (args) => <AddItemFormError addItem={args.addItem} />,
+    render: (args) => <AddItemFormError addItem={args.addItem} label={'Add task'} />,
 }

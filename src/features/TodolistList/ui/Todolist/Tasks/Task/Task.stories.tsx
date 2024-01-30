@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import { Task, TaskResponse } from 'features'
-import { StoreProviderDecorator } from 'app'
 import { TaskPriorities, TaskStatuses } from 'common'
 
 const meta: Meta<typeof Task> = {
@@ -22,7 +21,6 @@ const meta: Meta<typeof Task> = {
             addedDate: '',
         },
     },
-    decorators: [StoreProviderDecorator],
 }
 
 export default meta

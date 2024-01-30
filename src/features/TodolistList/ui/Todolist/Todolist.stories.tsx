@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { StoreProviderDecorator } from 'app'
+
 import { TaskPriorities, TaskStatuses } from 'common'
 import { Todolist } from 'features'
 
@@ -7,7 +7,6 @@ const meta: Meta<typeof Todolist> = {
     title: 'TODOLIST/Todolist',
     component: Todolist,
     tags: ['autodocs'],
-    decorators: [StoreProviderDecorator],
 }
 
 export default meta

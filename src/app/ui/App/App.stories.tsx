@@ -1,24 +1,33 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Provider } from 'react-redux'
-import { StoreProviderDecorator, store, App } from 'app'
-import { BrowserRouter } from 'react-router-dom'
+import { App, Header } from 'app'
+import { ErrorSnackbar } from 'common'
+import { Login, TodolistsList } from 'features'
 
 const meta: Meta<typeof App> = {
-    title: 'TODOLIST/App',
+    title: 'PAGES/App',
     component: App,
     tags: ['autodocs'],
-    decorators: [StoreProviderDecorator],
 }
 
 export default meta
 type Story = StoryObj<typeof App>
 
-export const AppWithReduxStory: Story = {
+export const AppStory: Story = {
     render: () => (
-        <Provider store={store}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </Provider>
+        <>
+            <Header />
+            <TodolistsList />
+            <ErrorSnackbar />
+        </>
+    ),
+}
+
+export const AppLoginStory: Story = {
+    render: () => (
+        <>
+            <Header />
+            <Login />
+            <ErrorSnackbar />
+        </>
     ),
 }
