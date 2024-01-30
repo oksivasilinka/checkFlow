@@ -32,7 +32,7 @@ CheckFlow is built using the following technologies:
 
 To get started with CheckFlow, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/checkflow.git`
+1. Clone the repository: `git clone https://github.com/oksivasilinka/checkflow.git`
 2. Install project dependencies: `yarn install`
 3. Start the development server: `yarn start`
 4. Open a browser and access CheckFlow at `http://localhost:3000`.
