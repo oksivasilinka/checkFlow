@@ -22,7 +22,7 @@ export const Header = () => {
         <AppBar position="static">
             <Toolbar className={s.toolbar}>
                 <Typography variant="h6">
-                    <Link href={'/'} color={'inherit'} style={{ textDecoration: 'none' }}>
+                    <Link href={'/checkFlow'} color={'inherit'} style={{ textDecoration: 'none' }}>
                         Check Flow
                     </Link>
                 </Typography>

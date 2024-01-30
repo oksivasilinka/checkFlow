@@ -4,12 +4,6 @@ import s from './Routing.module.css'
 import { Login, TodolistsList } from 'features'
 
 export const Routing = () => {
-    // const isLoggedIn = useAppSelector(selectIsLoggedIn)
-    //
-    // if (!isLoggedIn) {
-    //     return <Navigate to={'login'} />
-    // }
-
     return (
         <Container fixed>
             <Routes>
